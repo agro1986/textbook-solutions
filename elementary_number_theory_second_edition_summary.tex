@@ -1,0 +1,63 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{mathabx}
+\usepackage{amsthm}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\title{Summary for ``Elementary Number Theory: Second Edition by Underwood Dudley"}
+\date{2018-12-10}
+\author{Agro Rachmatullah}
+
+\begin{document}
+  \pagenumbering{gobble}
+  \maketitle
+  
+  \newpage
+  \pagenumbering{arabic}
+  \section{Integers}
+  
+  \begin{definition}
+  $a$ divides $b$ (written $a \divides b$) if and only if there is an integer $d$ such that $ad = b$.
+  
+  \subparagraph{Examples} $3 \divides 6$, $15 \divides 60$, $9 \divides 9$, $-4 \divides 16$, and $2 \divides -100$.
+  \end{definition}
+  
+  \begin{definition}
+  If $a$ does not divide $b$, we write $a \notdivides b$.
+  
+  \subparagraph{Examples} $10 \notdivides 5$ and $3 \notdivides 7$.
+  \end{definition}
+  
+  \begin{lemma}
+    If $d \divides a$ and $d \divides b$, then $d \divides (a + b)$.
+  \end{lemma}
+  
+  \subparagraph{Example} $2 \divides 4$ and $2 \divides 10$, so $2 \divides 12$.
+  
+  \begin{lemma}
+    If $d \divides a_1$, $d \divides a_2$, ... $d \divides a_n$, then $d \divides (c_1a_1 + c_2a_2 + ... + c_na_n)$ for any integers $c_1, c_2, ..., c_n$
+  \end{lemma}
+  
+  \subparagraph{Example} $2 \cdot 6 + 4 \cdot 9 = 12 + 36 = 48$. Because $3 \divides 6$ and $3 \divides 9$, we conclude that $3 \divides 48$.
+  
+  \begin{definition}
+    $d$ is the greatest common divisor of $a$ and $b$ (written $d = (a, b)$) if and only if
+    
+    \begin{enumerate}[label=(\roman*)]
+      \item $d \divides a$ and $d \divides b$, and
+    
+      \item if $c \divides a$ and $c \divides b$, then $c \le d$
+    \end{enumerate}
+  \end{definition}
+  
+  \subparagraph{Examples} $(2, 6) = 2$ and $(5, 7) = 1$.
+\end{document}

@@ -1,0 +1,41 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{mathabx}
+
+\title{Exercises Solution for ``Elementary Number Theory: Second Edition by Underwood Dudley"}
+\date{2018-12-10}
+\author{Agro Rachmatullah}
+
+\begin{document}
+  \pagenumbering{gobble}
+  \maketitle
+  
+  \newpage
+  \pagenumbering{arabic}
+  \section{Integers}
+  
+  \paragraph{Exercise 1} Which integers divide zero?
+  
+  For any integer $a$, $0 \cdot a = 0$. Therefore all integers divide zero.
+  
+  \paragraph{Exercise 2} Show that if $a \divides b$ and $b \divides c$, then $a \divides c$.
+  
+  From the definition, there are integers $d$ and $e$ such that $b = da$ and $c = eb$.
+  Therefore,
+  
+  \begin{align*}
+  c &= eb \\
+     &= eda \\
+     &= (ed)a
+  \end{align*}
+  
+  Which means $a \divides c$.
+  
+  \paragraph{Exercise 3} Prove that if $d \divides a$ then $d \divides ca$ for any integer $c$.
+  
+  \subparagraph{Method 1} From the definition, there is an integer $b$ such that $a = bd$. Therefore $ca = cbd = (cb)d$
+  which means $d \divides ca$.
+  
+  \subparagraph{Method 2} We can use Lemma 2 by setting $n = 1$, $a_1 = a$, and $c_1 = c$.
+\end{document}
