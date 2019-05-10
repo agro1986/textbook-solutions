@@ -6,9 +6,17 @@
 \usepackage{amsthm}
 \usepackage{enumitem}
 
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition} % by default it is "plain" which will italicize the body
+\newtheorem{theorem}{Theorem}[section] % will be numbered section.theorem
+
+\theoremstyle{definition}
+\newtheorem{corollary}{Corollary}[theorem] % will be numbered section.theorem.corollary
+
+\theoremstyle{definition}
+\newtheorem{lemma}{Lemma}[section]
+
+% \newtheorem{lemma}[theorem]{Lemma} % will follow the numbering as if it is a theorem.
+% So after theorem 1.2 comes lemma 1.3
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
@@ -24,6 +32,18 @@
   \newpage
   \pagenumbering{arabic}
   \section{Integers}
+  
+  \begin{definition}[Least-integer principle]
+  A nonempty set of integers that is bounded below contains a smallest element.
+  \end{definition}
+  
+  \subparagraph{Example} The set $\{4, 5, 6\}$ has 4 as the smallest element. The set $\{10, 12, 14, ...\}$ has 10 as the smallest element.
+  
+  \begin{definition}[Greatest-integer principle]
+  A nonempty set of integers that is bounded above contains a largest element.
+  \end{definition}
+  
+  \subparagraph{Example} The set $\{4, 5, 6\}$ has 6 as the largest element. The set $\{1\}$ has 1 as the largest element.
   
   \begin{definition}
   $a$ divides $b$ (written $a \divides b$) if and only if there is an integer $d$ such that $ad = b$.
@@ -41,7 +61,7 @@
     If $d \divides a$ and $d \divides b$, then $d \divides (a + b)$.
   \end{lemma}
   
-  \subparagraph{Example} $2 \divides 4$ and $2 \divides 10$, so $2 \divides 12$.
+  \subparagraph{Example} $2 \divides 4$ and $2 \divides 10$, so $2 \divides 14$.
   
   \begin{lemma}
     If $d \divides a_1$, $d \divides a_2$, ... $d \divides a_n$, then $d \divides (c_1a_1 + c_2a_2 + ... + c_na_n)$ for any integers $c_1, c_2, ..., c_n$
@@ -60,4 +80,224 @@
   \end{definition}
   
   \subparagraph{Examples} $(2, 6) = 2$ and $(5, 7) = 1$.
+  
+  \begin{theorem}
+    If $(a, b) = d$, then $(a / d, b / d) = 1$.
+  \end{theorem}
+  
+  \subparagraph{Examples} \ 
+  
+  $(16, 20) = 4$, so $(16 / 4, 20 / 4) = (4, 5) = 1$
+  
+  $(12, 6) = 3$, so $(12 / 3, 6 / 3) = (4, 2) = 2$
+  
+  \begin{proof}
+    Suppose that $c = (a / d, b / d)$. If follows that $c \divides (a / d)$ and $c \divides (b / d)$. Therefore there are
+    integers $q$ and $r$ such that $cq = a / d$ and $cr = b / d$. That is,
+    
+      \begin{equation*}
+        (cd)q = a \;\;\text{and}\;\; (cd)r = b
+      \end{equation*}
+    
+    which means $cd$ is a divisor of both $a$ and $b$. Because $(a, b) = d$, it must be the case that $cd \leq d$.
+    $d$ is positive so $c \leq 1$.
+    
+    Because $c = (a / d, b / d)$, it follows that $c \geq 1$. Therefore $c = 1$.
+  \end{proof}
+  
+  \begin{definition}
+    If $(a, b) = 1$, then we will say that $a$ and $b$ are \textbf{relatively prime}.
+  \end{definition}
+  
+  \subparagraph{Examples} $(4, 5) = 1$, so 4 and 5 are relatively prime. 10 and 7 are also relatively prime.
+  
+  \begin{theorem}[The Division Algorithm]
+    Given positive integers $a$ and $b$, $b \neq 0$, there exist unique integers $q$ and $r$, with $0 \leq r < b$ such that
+    
+    \begin{equation*}
+      a = bq + r
+    \end{equation*}
+  \end{theorem}
+  
+  \subparagraph{Example} With $a = 17$ and $b = 5$, we have $17 = 5 \cdot 3 + 2$
+  
+  \begin{proof}
+    Consider the set of integers $\{a, a - b, a - 2b, a - 3b, \dots, a - qb\}$ bounded below by 0.
+    It contains members that are nonnegative and nonempty (because at least $a$ is a member).
+    From the least-integer principle, it contains a smallest element $a - qb$.
+    
+    The smallest element must be less than $b$, because if not the smallest element in the set would have
+    to be $a - (q + 1)b$.
+    
+    Ler $r = a - qb$. It follows that $a = bq + r$ and we only have to show that $q$ and $r$ are unique.
+    
+    Suppose that we have found $q$, $r$ and $q_1$, $r_1$ such that $a = bq + r = bq_1 + r_1$ with
+    $0 \leq r < b$ and $0 \leq r_1 < b$. Subtracting, we get
+    
+    \begin{align*}
+      0 &= b(q - q_1) + (r - r_1) \\
+      b(q_1 - q) &= r - r_1
+    \end{align*}
+    
+    Since $b$ divides the left side of the equation, it follows that $b \divides r - r_1$.
+    
+    Because $0 \leq r_1 < b$, we have $-b < -r_1 \leq 0$. We also have $0 \leq r < b$, so it follows that
+    
+    \begin{equation*}
+      -b < r - r_1 < b
+    \end{equation*}
+    
+    Since the only number in that range divisible by $b$ is 0, $r - r_1 = 0$ which implies $q - q_1 = 0$.
+    Hence the numbers $q$ and $r$ in the theorem is unique.
+  \end{proof}
+  
+  \begin{lemma}
+    If $a = bq + r$, then $(a, b) = (b, r)$.
+  \end{lemma}
+  
+  \begin{proof}
+    Let $d = (a, b)$. Because $d \divides a$ and $d \divides b$, we know from $a = bq + r$ that $d \divides r$.
+    Therefore, $d$ is a common divisor of $b$ and $r$. It remains to show that $d$ is not just any common
+    divisor but in fact the greatest common divisor.
+    
+    Now let us assume that $c$ is a common divisor of $b$ and $r$, so $c \divides b$ and $c \divides r$.
+    From the equation $a = bq + r$, we know that $c \divides a$. So $c$ is common divisor of both
+    $a$ and $b$. Because $(a, b) = d$, it must be the case that $c \leq d$.
+    
+    Since $d$ is a common divisor of $b$ and $r$, and for any common divisor $c$ we have $c \leq d$,
+    we have proven that $(b, r) = d$.
+  \end{proof}
+  
+  \begin{theorem}[The Eucledian Algorithm]
+    If $a$ and $b$ are positive integers, $b \ne 0$, and
+    
+    \begin{align*}
+      a &= bq + r,         &0 &\leq r < b, \\
+      b &= rq_1 + r_1, &0 &\leq r_1 < r, \\
+      r &= r_1q_2 + r_2, &0 &\leq r_2 < r_1 \\
+      \cdot & &. \\
+      \cdot & &. \\
+      \cdot & &. \\
+      r_k &= r_{k+1}q_{k+2} + r_{k+2}, &0 &\leq r_{k+2} < r_{k+1}
+    \end{align*}
+    
+    then for $k$ large enough, say $k = t - 1$, we have
+    
+    \begin{equation*}
+      r_{t - 1} = r_tq_{t+1}
+    \end{equation*}
+    
+    and $(a, b) = r_t$.
+  \end{theorem}
+  
+  \begin{proof}
+    The sequence
+    
+    \begin{equation*}
+      b > r > r_1 > r_2 > \dots
+    \end{equation*}
+    
+    is decreasing, and we know that they are nonnegative, so we will eventually reach 0. Suppose $r_{t+1} = 0$.
+    Then we have $r_{t - 1} = r_tq_{t+1}$. If we apply Lemma 3 over and over,
+    
+    \begin{equation*}
+      (a, b) = (b, r) = (r, r_1) = (r_1, r_2) = \dots = (r_{t-1}, r_t) = r_t
+    \end{equation*}
+  \end{proof}
+  
+  \begin{theorem}
+    If $(a, b) = d$, then there are integers $x$ and $y$ such that
+    
+    \begin{equation*}
+      ax + by = d
+    \end{equation*}
+  \end{theorem}
+  
+  \begin{proof}
+    Let us assume that $a$ and $b$ are positive integers with $a \geq b$ and $b \neq 0$.
+    We can always switch the order of $a$ and $b$, and if $b = 0$ then the proof is trivial.
+    
+    If $(a, b) = b$, then $a \cdot 0 + b \cdot 1 = b$ so the equation is true with $x = 0$ and $y = 1$.
+    
+    For $d < b$, then $d$ will be one of the remainders in the set of equations from Theorem 3.
+    If we call the remainders $r_0, r_1, \dots$ then we can rewrite the equations as
+    
+    \begin{align*}
+      r_0 &= a - bq \\
+      r_1 &= b - r_0q_1 \\
+      r_2 &= r_0 - r_1q_2 \\
+      &\dots \\
+      r_n &= r_{n-2} - r_{n-1}q_n
+    \end{align*}
+    
+    For the base case of $r_0$ and $r_1$, it is easy to confirm that they can be written as
+    $ax + by$.
+    
+    Now, assuming that $r_{n-2} = ax + by$ and $r_{n-1} = ax' + by'$, then
+    
+    \begin{align*}
+      r_n &= r_{n-2} - r_{n-1}q_n \\
+      &= ax + by - q_n(ax' + by') \\
+      &= a(x - q_nx') + b(y - q_ny')
+    \end{align*}
+    
+    Because the base case and inductive case is proven, it is proved for all $r_n$.
+    
+    If one or both of $a$ and $b$ are negative, we can use the property $(a, b) = (-a, b) = (a, -b) = (-a, -b)$.
+    We can also switch the order such that $a \geq b$ as required by the beginning of the proof.
+  \end{proof}
+  
+  \begin{corollary}
+    If $d \divides ab$ and $(d, a) = 1$, then $d \divides b$.
+  \end{corollary}
+  
+  \begin{proof}
+    Because $d$ and $a$ is relatively prime, we have
+    
+    \begin{align*}
+      dx + ay &= 1 \\
+      d(bx) + (ab)y &= b
+    \end{align*}
+    
+    Because the left side is divisible by $d$, we conclude that $d \divides b$.
+  \end{proof}
+  
+  \begin{corollary}
+    Let $(a, b) = d$, and suppose that $c \divides a$ and $c \divides b$.
+    Then $c \divides d$.
+  \end{corollary}
+  
+  \subparagraph{Examples} $(18, 12) = 6$, and 3 is a common divisor
+  of both 18 and 12. Thus by the corollary $3 \divides 6$.
+  
+  \begin{proof}
+    We know that there are integers $x$ and $y$ such that
+    
+    \begin{equation*}
+      ax + by = d
+    \end{equation*}
+    
+    Because $c \divides ax$ and $c \divides by$, $c$ divides the right hand side too.
+  \end{proof}
+  
+  \begin{corollary}
+    If $a \divides m$, $b \divides m$, and $(a, b) = 1$, then $ab \divides m$.
+  \end{corollary}
+  
+  \subparagraph{Examples} $3 \divides 30$, $5 \divides 30$, and $(3, 5) = 1$. Thus $3 \cdot 5 = 15 \divides 30$.
+  
+  \begin{proof}
+    $b \divides m$ means there is an integer $q$ such that $m = bq$.
+    Since $a \divides m$, we have $a \divides bq$.
+    
+    However since $(a, b) = 1$, from Corollary 1 we know that $a \divides q$. Therefore
+    there is an integer $r$ such that $q = ar$, so $m = bar = (ab) r$. Thus $ab \divides m$.
+  \end{proof}
+  
 \end{document}
+
+
+
+
+
+

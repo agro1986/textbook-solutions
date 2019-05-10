@@ -2,6 +2,10 @@
 
 \usepackage{amsmath}
 \usepackage{mathabx}
+\usepackage{amsthm}
+
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}
 
 \title{Exercises Solution for ``Elementary Number Theory: Second Edition by Underwood Dudley"}
 \date{2018-12-10}
@@ -15,11 +19,15 @@
   \pagenumbering{arabic}
   \section{Integers}
   
-  \paragraph{Exercise 1} Which integers divide zero?
+  \begin{exercise}
+    Which integers divide zero?
+  \end{exercise}
   
   For any integer $a$, $0 \cdot a = 0$. Therefore all integers divide zero.
   
-  \paragraph{Exercise 2} Show that if $a \divides b$ and $b \divides c$, then $a \divides c$.
+  \begin{exercise}
+    Show that if $a \divides b$ and $b \divides c$, then $a \divides c$.
+  \end{exercise}
   
   From the definition, there are integers $d$ and $e$ such that $b = da$ and $c = eb$.
   Therefore,
@@ -32,10 +40,90 @@
   
   Which means $a \divides c$.
   
-  \paragraph{Exercise 3} Prove that if $d \divides a$ then $d \divides ca$ for any integer $c$.
+  \begin{exercise}
+    Prove that if $d \divides a$ then $d \divides ca$ for any integer $c$.
+  \end{exercise}
   
   \subparagraph{Method 1} From the definition, there is an integer $b$ such that $a = bd$. Therefore $ca = cbd = (cb)d$
   which means $d \divides ca$.
   
   \subparagraph{Method 2} We can use Lemma 2 by setting $n = 1$, $a_1 = a$, and $c_1 = c$.
+  
+  \begin{exercise}
+    What are $(4, 14)$, $(5, 15)$, and $(6, 16)$?
+  \end{exercise}
+  
+  The positive divisors of 4 are 1, 2, and 4, and the positive divisors of 14 are 1, 2, 7, and 14. Therefore $(4, 14) = 2$.
+  
+  The positive divisors of 5 are 1 and 5. Likewise for 15 they are 1, 3, 5, and 15. Therefore $(5, 15) = 5$.
+  
+  The positive divisors of 6 are 1, 2, 3, and 6. For 16 they are 1, 2, 4, 8, and 16. Therefore $(6, 16) = 2$.
+  
+  \begin{exercise}
+    What is $(n, 1)$, where $n$ is any positive integer? What is $(n, 0)$?
+  \end{exercise}
+  
+  The only divisor of 1 is 1, and it also divides any positive integer $n$, so $(n, 1) = 1$.
+  
+  $n \divides n$ and is the largest divisor of $n$. Because $n \divides 0$, $(n, 0) = n$.
+  
+  \begin{exercise}
+    If $d$ is a positive integer, what is $(d, nd)$?
+  \end{exercise}
+
+  The largest divisor of $d$ is $d$ itself. Because $d \divides nd$, $(d, nd) = d$.
+  
+  \begin{exercise}
+    What are $q$ and $r$ if $a = 75$ and $b = 24$? If $a = 75$ and $b = 25$?
+  \end{exercise}
+  
+  We can create the set
+  
+  \begin{equation*}
+    \{75, 75 - 24 = 51, 75 - 2 \cdot 24 = 27, 75 - 3 \cdot 24 = 3\}
+  \end{equation*}
+  
+  Therefore $75 = 3 \cdot 24 + 3$ so $q = 3$ and $r = 3$.
+  
+  Similarly, for the second problem we can create the set
+  
+    \begin{equation*}
+      \{75, 75 - 25 = 50, 75 - 2 \cdot 25 = 25, 75 - 3 \cdot 25 = 0\}
+    \end{equation*}
+  
+  So $q = 3$ and $r = 0$.
+  
+  \begin{exercise}
+    Verify that the lemma is true when $a = 16$, $b = 6$, and $q = 2$.
+  \end{exercise}
+  
+  We have the equation $16 = 6 \cdot 2 + 4$ so $r = 4$.
+  
+  $(16, 6) = 2$, and $(6, 4) = 2$, which is according to the lemma.
+  
+  \begin{exercise}
+    Calculate $(343, 280)$ and $(578, 442)$.
+  \end{exercise}
+  
+  For the first problem,
+  
+  \begin{align*}
+    343 &= 280 + 63 \\
+    280 &= 63 \cdot 4 + 28 \\
+    63 &= 28 \cdot 2 + 7 \\
+    28 &= 7 \cdot 4
+  \end{align*}
+  
+  So $(343, 280) = (280, 63) = (63, 28) = (28, 7) = 7$
+  
+  For the second problem,
+  
+  \begin{align*}
+    578 &= 442 + 136 \\
+    442 &= 136 \cdot 3 + 34 \\
+    136 &= 34 \cdot 4
+  \end{align*}
+  
+  So $(578, 442) = (442, 136) = (136, 34) = 34$ 
+
 \end{document}
