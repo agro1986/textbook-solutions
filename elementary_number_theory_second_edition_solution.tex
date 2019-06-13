@@ -3,9 +3,11 @@
 \usepackage{amsmath}
 \usepackage{mathabx}
 \usepackage{amsthm}
+\usepackage{enumitem}
 
 \theoremstyle{definition}
 \newtheorem{exercise}{Exercise}
+\newtheorem{problem}{Problem}
 
 \title{Exercises Solution for ``Elementary Number Theory: Second Edition by Underwood Dudley"}
 \date{2018-12-10}
@@ -124,6 +126,298 @@
     136 &= 34 \cdot 4
   \end{align*}
   
-  So $(578, 442) = (442, 136) = (136, 34) = 34$ 
+  So $(578, 442) = (442, 136) = (136, 34) = 34$
+  
+  \begin{problem}
+    Calculate $(314, 159)$ and $(4144, 7696)$.
+  \end{problem}
+  
+  \begin{align*}
+    314 &= 159 \cdot 1 + 155 \\
+    159 &= 155 \cdot 1 + 4 \\
+    155 &= 4 \cdot 38 + 3
+  \end{align*}
+  
+  Therefore, using the Eucledian algorithm,
+  
+  \begin{align*}
+    (314, 159) &= (159, 155) \\
+    &= (155, 4) \\
+    &= (4, 3) \\
+    &= 1
+  \end{align*}
+  
+  \begin{align*}
+    7696 &= 4144 \cdot 1 + 3552 \\
+    4144 &= 3552 \cdot 1 + 592 \\
+    3522 &= 592 \cdot 6 + 0
+  \end{align*}
+  
+  Therefore, using the Eucledian algorithm,
+  
+  \begin{align*}
+    (4144, 7696) &= (7696, 4144) \\
+    &= (4144, 3552) \\
+    &= (3522, 592) \\
+    &= 592
+  \end{align*}
+  
+  \begin{problem}
+    Calculate $(3141, 1592)$ and $(10001, 100083)$.
+  \end{problem}
+  
+  \begin{align*}
+    3141 &= 1592 \cdot 1 + 1549 \\
+    1592 &= 1549 \cdot 1 + 43 \\
+    1549 &= 43 \cdot 36 + 1
+  \end{align*}
+  
+  Therefore, using the Eucledian algorithm,
+  
+  \begin{align*}
+    (3141, 1592) &= (1592, 1549) \\
+    &= (1549, 43) \\
+    &= (43, 1) \\
+    &= 1
+  \end{align*}
+  
+  \begin{align*}
+    100083 &= 10001 \cdot 10 + 73 \\
+    10001 &= 73 \cdot 137 + 0
+  \end{align*}
+  
+  Therefore, using the Eucledian algorithm,
+  
+  \begin{align*}
+    (10001, 100083) &= (100083, 10001) \\
+    &= (10001, 73) \\
+    &= 73
+  \end{align*}
+  
+  \begin{problem}
+    Find $x$ and $y$ such that $314x + 159y = 1$.
+  \end{problem}
+  
+  From problem 1, we know that a solution exists.
+  
+  \begin{alignat*}{5}
+    314 &= 159 \cdot 1 + 155 &\;&\text{implies} &\;&&155 &= 314 - 159 \\
+    159 &= 155 \cdot 1 + 4 &\;&\text{implies} &\;&&4 &= -314 + 159 \cdot 2 \\
+    155 &= 4 \cdot 38 + 3 &\;&\text{implies} &\;&& 3 &= 314 \cdot 39 - 159 \cdot 77 \\
+    4 &= 3 \cdot 1 + 1 &\;&\text{implies} &\;&& 1 &= 4 - 3
+  \end{alignat*}
+  
+  Using backsubstitution we get
+  
+  \begin{align*}
+    1 &= 314 (-40) + 159 \cdot 79
+  \end{align*}
+  
+  So $x = -140$ and $y = 79$.
+  
+  \begin{problem}
+    Find $x$ and $y$ such that $4144x + 7696y = 592$.
+  \end{problem}
+  
+  From problem 1, we know that a solution exists.
+  
+  \begin{alignat*}{5}
+    7696 &= 4144 \cdot 1 + 3552 &\;&\text{implies} &\;&&3552 &= 7696 - 4144 \\
+    4144 &= 3552 \cdot 1 + 592 &\;&\text{implies} &\;&&592 &= 4144 - 3552
+  \end{alignat*}
+  
+  Using backsubstitution we get
+  
+  \begin{align*}
+    592 &= 7696 (-1) + 4144 \cdot 2
+  \end{align*}
+  
+  So $x = -1$ and $y = 2$.
+  
+  \begin{problem}
+    If $N = abc + 1$, prove that $(N, a) = (N, b) = (N, c) = 1$.
+  \end{problem}
+  
+  Let $(N, a) = d$, so $d \divides N$ and $d \divides a$.
+  
+  Because $d \divides N$ and $d \divides abc$, from $N = abc + 1$ it must be the case that $d \divides 1$.
+  
+  Since $d$ is a gcd, $d \geq 1$, therefore $d = 1$.
+  
+  The same argument can be said for $(N, b)$ and $(N, c)$.
+  
+  \begin{problem}
+    Find two different solutions of $299x + 247y = 13$.
+  \end{problem}
+  
+  Using the Eucledian algorithm, we get $x_0 = 5$ and $y_0 = -6$.
+  
+  Since the original equation is a linear equation, it can be written as
+  
+  \begin{equation}
+    y = -\frac{299}{247} x + c
+  \end{equation}
+  
+  So from any point in the solution, we can go 247 units to the right
+  and 299 units downwards and it will still be a solution. Therefore,
+  
+  \begin{align*}
+    x &= 5 + 247n \\
+    y &= -6 -299n
+  \end{align*}
+  
+  Will be a solution for any integer $n$.
+  
+  \begin{problem}
+  Prove that if $a \divides b$ and $b \divides a$, then $a = b$ or $a = -b$.
+  \end{problem}
+  
+  From the proposition, $b = aq$ for some integer $q$ and $a = br$ for some integer $r$.
+  Therefore,
+  
+  \begin{align*}
+    a &= (aq)r \\
+    &= a(qr)
+  \end{align*}
+  
+  So $qr = 1$ which means $q = r = 1$ or $q = r = -1$, and because $a = br$ either
+  $a = b$ or $a = -b$.
+  
+  \begin{problem}
+    Prove that if $a \divides b$ and $a > 0$, then $(a, b) = a$.
+  \end{problem}
+  
+  $a$ is the divisor of both $a$ and $b$. Because $a > 0$, $a$ is the largest divisor of $a$.
+  So for any divisor $c$ of both $a$ and $b$, $c \leq a$. Thus $(a, b) = a$.
+  
+  \begin{problem}
+    Prove that $((a, b), b) = (a, b)$.
+  \end{problem}
+  
+  $(a, b) \divides b$ and of course $(a, b) \divides (a, b)$, so $(a, b)$ is a common divisor of both $(a, b)$ and $b$.
+  Furthermore because $(a, b) > 0$, no other common divisor can be larger than it (else it won't divide $(a, b)$).
+  Therefore $((a, b), b) = (a, b)$.
+  
+  \begin{problem}
+    ~
+  \end{problem}
+  
+  \begin{enumerate}[label=\alph*)]
+      \item Prove that $(n, n + 1) = 1$ for all $n > 0$.
+      
+      Suppose that $(n, n + 1) = d$. It means that $d | n$ and $d | n + 1$, so it follows that $d | 1$.
+  
+      Because $d > 0$, then $d = 1$ (which is actually valid for all $n$).
+      
+      \item If $n > 0$, what can $(n, n + 2)$ be?
+      
+      Suppose $n$ is even, so $n = 2m$. Therefore
+      
+      \begin{equation*}
+        (n, n + 2) = (2m, 2(m + 1))
+      \end{equation*}
+      
+      Since $(m, m + 1) = 1$ as proved before, 2 is the largest common divisor of $2m$ and $2(m + 1)$.
+      Therefore $(n, n + 2) = 2$, so if $n > 0$ then $(n, n + 2)$ could be 2.
+  \end{enumerate}
+    
+  \begin{problem}
+    ~
+  \end{problem}
+  
+  \begin{enumerate}[label=\alph*)]
+    \item Prove that $(k, n + k) = 1$ if and only if $(k, n) = 1$.
+    
+    If $d$ is a common divisor of both $k$ and $n + k$, $d \divides k$ and $d \divides n + k$, so it follows that $d \divides n$.
+    
+    However $(k, n + k) = 1$ so $d \leq 1$. Therefore $(k, n) = 1$. The reverse is trivially true.
+    
+    \item Is it true that $(k, n + k) = d$ if and only if $(k, n) = d$?
+    
+    Yes. Replace 1 in the argument above with any other number
+  \end{enumerate}
+  
+  \begin{problem}
+    Prove: If $a \divides b$ and $c \divides d$, then $ac \divides bd$.
+  \end{problem}
+  
+  $a \divides b$ means $b = aq$ for some $q$, and $c \divides d$ means $d = cr$ for some $r$.
+  
+  Therefore
+  
+  \begin{align*}
+    bd &= aqcr \\
+    &= (ac)qr
+  \end{align*}
+  
+  So $ac \divides bd$.
+  
+  \begin{problem}
+    Prove: If $d \divides a$ and $d \divides b$, then $d^2 \divides ab$.
+  \end{problem}
+  
+  This is just a more specific instance of the previous problem.
+  
+  \begin{problem}
+    Prove: If $c \divides ab$ and $(c, a) = d$, then $c \divides db$.
+  \end{problem}
+  
+  $a = dq$ for some $q$, and $c = dr$ for some $r$. In other words,
+  $a/d = q$ and $c/d = r$. From Theorem 1.1, $(a/d, b/d) = 1$. Therefore
+  $(q, r) = 1$.
+  
+  \begin{align*}
+    a \divides ab &\implies dr \divides dqb \\
+    &\implies r \divides qb
+  \end{align*}
+  
+  Because $(q, r) = 1$, from Corollary 1.4.1 $r \divides b$, which means
+  $dr \divides db$, or $c \divides db$.
+  
+  \begin{problem}
+    ~
+  \end{problem}
+  
+  \begin{enumerate}[label=\alph*)]
+    \item If $x^2 + ax + b = 0$ has an integer root, show that it divides $b$.
+    
+    \begin{align*}
+      x^2 + ax + b &= 0 \\
+      b &= -x^2 - ax \\
+      b &= x(-x - a)
+    \end{align*}
+    
+    Which means that the root divides $b$.
+    
+    \item If $x^2 + ax + b = 0$ has a rational root, show that it is in fact an integer.
+    
+    Suppose that the roots are $r$ and $s$.
+    
+    \begin{align*}
+      (x - r) (x - s) &= x^2 -(r + s)x + rs
+    \end{align*}
+    
+    Therefore $a = -(r + s)$ and $b = rs$. 
+    
+    Let's say that one of the roots $r$
+    can be written as $m/n$ where $(m, n) = 1$ (If it is not the case, then the rational number
+    can be simplified so that $(m, n) = 1$). Assume that $m \neq 0$ because else the proof
+    is done.
+    
+    Because $b = rs$, we have $s = \frac{bn}{m}$. Therefore
+    
+    \begin{align*}
+      a &= -(r + s) \\
+        &= -\left(\frac{m}{n} + \frac{bn}{m}\right) \\
+        &= -\left(\frac{m^2 + bn^2}{mn}\right) \\
+      -mna &= m^2 + bn^2 \\
+      n(-ma) &= m^2 + n(bn)
+    \end{align*}
+    
+    Because $n$ divides the left side and also $n(bn)$, we have $n \divides m^2$. We use
+    the fact that $(m, n) = 1$ and Corollary 1.4.1 to conclude that $n \divides m$. Therefore
+    $m/n$ is an integer.
+    
+  \end{enumerate}
 
 \end{document}
