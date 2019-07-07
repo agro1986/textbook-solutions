@@ -5,6 +5,7 @@
 \usepackage{mathabx}
 \usepackage{amsthm}
 \usepackage{enumitem}
+\usepackage{bm}
 
 \theoremstyle{definition} % by default it is "plain" which will italicize the body
 \newtheorem{theorem}{Theorem}[section] % will be numbered section.theorem
@@ -21,8 +22,10 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 
+\counterwithin*{equation}{section}
+
 \title{Summary for ``Elementary Number Theory: Second Edition by Underwood Dudley"}
-\date{2018-12-10}
+\date{2019-07-08}
 \author{Agro Rachmatullah}
 
 \begin{document}
@@ -37,7 +40,7 @@
   A nonempty set of integers that is bounded below contains a smallest element.
   \end{definition}
   
-  \subparagraph{Example} The set $\{4, 5, 6\}$ has 4 as the smallest element. The set $\{10, 12, 14, ...\}$ has 10 as the smallest element.
+  \subparagraph{Example} The set $\{4, 5, 6\}$ has 4 as the smallest element. The set $\{10, 12, 14, \dots\}$ has 10 as the smallest element.
   
   \begin{definition}[Greatest-integer principle]
   A nonempty set of integers that is bounded above contains a largest element.
@@ -64,7 +67,7 @@
   \subparagraph{Example} $2 \divides 4$ and $2 \divides 10$, so $2 \divides 14$.
   
   \begin{lemma}
-    If $d \divides a_1$, $d \divides a_2$, ... $d \divides a_n$, then $d \divides (c_1a_1 + c_2a_2 + ... + c_na_n)$ for any integers $c_1, c_2, ..., c_n$
+    If $d \divides a_1$, $d \divides a_2$, $\dots$ $d \divides a_n$, then $d \divides (c_1a_1 + c_2a_2 + \dots + c_na_n)$ for any integers $c_1, c_2, \dots, c_n$
   \end{lemma}
   
   \subparagraph{Example} $2 \cdot 6 + 4 \cdot 9 = 12 + 36 = 48$. Because $3 \divides 6$ and $3 \divides 9$, we conclude that $3 \divides 48$.
@@ -211,6 +214,7 @@
     \begin{equation*}
       ax + by = d
     \end{equation*}
+    \label{th:gcd_to_linear}
   \end{theorem}
   
   \begin{proof}
@@ -249,6 +253,7 @@
   
   \begin{corollary}
     If $d \divides ab$ and $(d, a) = 1$, then $d \divides b$.
+    \label{cor:must_divide_one_of_them}
   \end{corollary}
   
   \begin{proof}
@@ -293,6 +298,396 @@
     However since $(a, b) = 1$, from Corollary 1 we know that $a \divides q$. Therefore
     there is an integer $r$ such that $q = ar$, so $m = bar = (ab) r$. Thus $ab \divides m$.
   \end{proof}
+  
+  \section{Unique Factorization}
+  
+  \begin{definition}
+    A \textbf{prime} is an integer that is greater than 1 and has no positive divisors other than 1 and itself.
+  \end{definition}
+  
+  \subparagraph{Examples} 2, 3, 5, 7 and 11 are primes.
+  
+  \begin{definition}
+    An integer that is greater than 1 but is not prime is called \textbf{composite}.
+  \end{definition}
+  
+  \subparagraph{Examples} 4 is a composite because it is divisible by 2. 10 is a composite because it
+  has 2 and 5 as its divisor.
+  
+  \begin{definition}
+    1 is neither a prime nor composite. We will call 1 a \textbf{unit}.
+  \end{definition}
+  
+  \begin{lemma}
+    Every integer $n$, $n > 1$, is divisible by a prime.
+    \label{lem:n_is_divisible_by_prime}
+  \end{lemma}
+  
+  \begin{proof}
+    Consider the set of all divisors of $n$ larger than 1 and smaller than $n$ itself. If it is empty,
+    then $n$ is a prime which means that it is divisible by a prime (namely itself).
+    
+    If it is nonempty, then by the least integer principle it has a smallest divisor, say $p$. If $p$
+    is not a prime, then it has divisor $q > 1$ but smaller than itself. However $q$ must divide
+    $n$ which is a contradiction because $p$ is supposed to be the smallest in the set. Therefore
+    $p$ is a prime, and $n$ has a prime divisor which is $p$.
+  \end{proof}
+  
+  \begin{proof}
+    (By induction) The lemma is true by inspection for $n = 2$. Suppose it is true for $n \leq k$. Then either
+    $k + 1$ is prime, in which case we are done, or it is divisible by some number $k_1$ with
+    $k_1 \leq k$. But from the induction assumption, $k_1$ is divisible by a prime, and this prime
+    also divides $k + 1$. Again, we are done.
+  \end{proof}
+  
+  \begin{lemma}
+    Every integer $n$, $n > 1$, can be written as a product of primes.
+    \label{lem:integer_is_a_product_of_primes}
+  \end{lemma}
+  
+  \begin{proof}
+    From Lemma 1, we know that there is a prime $p_1$ such that $p_1 \divides n$. That is, $n = p_1n_1$,
+    where $1 \leq n_1 < n$. If $n_1 = 1$, then we are done: $n = p_1$ is an expression of $n$ as a products of
+    primes. If $n_1 > 1$, then from Lemma 1 again, there is a prime that divides $n_1$. That is, $n_1 = p_2n_2$,
+    where $p_2$ is a prime and $1 \leq n_2 < n_1$. If $n_2 = 1$, again we are done: $n = p_1p_2$ is written as a 
+    product of primes. But if $n_2 > 1$, then Lemma 1 once again says that $n_2 = p_3n_3$, with $p_3$ a prime
+    and $1 \leq n_3 < n_2$. If $n_3 = 1$, we are done. If not we continue. We will sooner or later come to one of the
+    $n_i$ equal to 1, because $n > n_1 > n_2 > \dots$ and each $n$, is positive; such a sequence cannot continue forever.
+    For some $k$, we will have $n_k = 1$, in which case $n = p_1p_2 \cdots p_k$ is the desired expression of n as
+    a product of primes. Note that the same prime may occur several times in the product.
+  \end{proof}
+  
+  \begin{theorem}[Euclid]
+    There are infinitely many primes.
+  \end{theorem}
+  
+  \begin{proof}
+    Suppose not. Then there are only finitely many primes. Denote them by $p_1, p_2, \dots, p_r$. Consider
+    the integer
+    
+    \begin{equation}
+      n = p_1p_2\cdots p_r + 1
+      \label{eq:new_prime}
+    \end{equation}
+    
+    From Lemma 1, we see that $n$ is divisible by a prime, and since there are only finitely many primes, it
+    must be one of $p_1, p_2, \dots, p_r$. Suppose that it is $p_k$. Then since
+    
+    \begin{equation*}
+      p_k \divides n \;\;\text{and}\;\; p_k \divides p_1p_2\cdots p_r\;\text{,}
+    \end{equation*}
+    
+    it divides two of the terms in (\ref{eq:new_prime}). Consequently it divides the other term in (\ref{eq:new_prime}); thus $p_k \divides 1$.
+    This is nonsense: no primes divide 1 because all are greater than 1. This contradiction shows that
+    we started with an incorrect assumption. Since there cannot be only finitely many primes, there
+    are infinitely many.
+  \end{proof}
+  
+  \begin{lemma}
+    If $n$ is composite, then it has divisor $d$ such that $1 < d \leq n^\frac{1}{2}$.
+    \label{lem:has_divisor_leq_sqrt}
+  \end{lemma}
+  
+  \begin{proof}
+    Since $n$ is composite, there are integers $d_1$ and $d_2$ such that $d_1d_2 = n$
+    and $1 < d_1 < n$, $1 < d_2 < n$. If $d_1$ and $d_2$ are both larger than $n^\frac{1}{2}$,
+    then
+    
+    \begin{equation*}
+      n = d_1d_2 > n^\frac{1}{2} n^\frac{1}{2} = n
+    \end{equation*}
+  \end{proof}
+  
+  which is impossible. Thus, one of $d_1$ and $d_2$ must be less than or equal to $n^\frac{1}{2}$.
+  
+  \begin{lemma}
+    If $n$ is composite, then it has a prime divisor less than or equal to $n^\frac{1}{2}$.
+  \end{lemma}
+  
+  \begin{proof}
+    We know from Lemma \ref{lem:has_divisor_leq_sqrt} that $n$ has a divisor---call it d---such that $1 < d \leq n^\frac{1}{2}$.
+    From Lemma \ref{lem:n_is_divisible_by_prime}, we know that $d$ has a prime divisor $p$. Since $p \leq d \leq n^\frac{1}{2}$,
+    the lemma is proved.
+  \end{proof}
+  
+  \begin{lemma}
+    If $p$ is a prime and $p \divides ab$, then $p \divides a$ or $b \divides b$.
+    \label{lem:prime_must_divide_one_of_two}
+  \end{lemma}
+  
+  \subparagraph{Examples} $2 \divides 4 \cdot 3$, so 2 must either divide 4 or 3.
+  Indeed, $2 \divides 4$.
+  
+  \subparagraph{} The same couldn't be said if the divisor is not a prime. For example, even though
+  $4 \divides 2 \cdot 6$, 4 doesn't divide either 2 nor 6.
+  
+  \begin{proof}
+    Since $p$ is prime, its only positive divisors are 1 and $p$. Thus $(p, a) = p$ or
+    $(p, a) = 1$. In the first case, $p \divides \bm{a}$, and we are done. In the second case,
+    Corollary \ref{cor:must_divide_one_of_them} tells us that $p \divides \bm{b}$, and again we are done.
+  \end{proof}
+  
+  \begin{lemma}
+    If $p$ is a prime and $p \divides a_1a_2\cdots a_k$, then $p \divides a_i$ for some $i$, $i = 1, 2, \dots, k$.
+    \label{lem:prime_must_divide_one_of_them_k}
+  \end{lemma}
+  
+  \begin{proof}
+    Lemma \ref{lem:prime_must_divide_one_of_them_k} is true by inspection if $k = 1$, and
+    Lemma \ref{lem:prime_must_divide_one_of_two} shows that it is true if $k = 2$. We will proceed by induction.
+    Suppose that Lemma \ref{lem:prime_must_divide_one_of_them_k} is true for $k = r$. Suppose that
+    $p \divides a_1a_2\cdots a_{r+1}$. The $p \divides a_1a_2\cdots a_r$ or $p \divides a_{r + 1}$. In the
+    first case, the induction assumption tells us that $p \divides a_i$ for some $i$, $i = 1, 2, \dots, r$. In the
+    second case, $p \divides a_i$ for $i = r + 1$. In either case, $p \divides a_i$ for some $i$, $i =1, 2, \dots, r + 1$.
+    Thus, if the lemma is true for $k = r$, it is true for $k = r + 1$, and since it is true for $k = 1$ and $k = 2$, it is
+    true for any positive integer $k$.
+  \end{proof}
+  
+  \begin{lemma}
+    If $p, q_1, q_2, \dots, q_n$ are primes, and $p \divides q_1q_2\cdots q_n$, then $p = q_k$ for some $k$.
+    \label{lem:prime_must_be_one_of_them}
+  \end{lemma}
+  
+  \begin{proof}
+    From Lemma \ref{lem:prime_must_divide_one_of_them_k} we know that $p \divides q_k$ for some $k$.
+    Since $p$ and $q_k$ are primes, $p = q_k$. (The only positive divisors of $q_k$ are 1 and $q_k$, and
+    $p$ is not 1.)
+  \end{proof}
+  
+  \begin{theorem}[The Unique Factorization Theorem]
+    Any positive integer can be written as a product of primes in one and only one way.
+  \end{theorem}
+  
+  \begin{proof}
+    Recall that we agreed to consider as identical all factorizations that differ only in the order of the factors.
+    
+    We know already from Lemma \ref{lem:integer_is_a_product_of_primes} that any integer $n$, $n > 1$
+    can be written as a product of primes. Thus to complete the proof of the theorem, we need to show
+    that $n$ cannot have two such representations. That is, if
+    
+    \begin{equation}
+      n = p_1p_2\cdots p_m \;\;\text{and}\;\; n = q_1q_2\cdots q_r
+      \label{eq:different_prime_factors}
+    \end{equation}
+    
+    then we must show that the same primes appear in each product, and the same number of times,
+    though their order may be different. That is, we must show that the integer $p_1, p_2, \dots, p_m$
+    are just a rearrangement of the integers $q_1q_2, \dots, q_r$. From (\ref{eq:different_prime_factors})
+    we see that since $p_1 \divides n$,
+    
+    \begin{equation*}
+      p_1 \divides q_1q_2\cdots q_r
+    \end{equation*}
+    
+    From Lemma \ref{lem:prime_must_be_one_of_them}, it follows that $p_1 = q_i$ for some $i$.
+    If we divide
+    
+    \begin{equation*}
+      p_1p_2\cdots p_m = q_1q_2\cdots q_r
+    \end{equation*}
+    
+    by the common factor, we have
+    
+    \begin{equation}
+      p_2p_3\cdots p_m = q_1q_2\cdots q_{i-1}q_{i+1}\cdots q_r\;\text{.}
+      \label{eq:factorization_divided_once}
+    \end{equation}
+    
+    Because $p_2$ divides the left-hand side of this equation, it also divides the right-hand side.
+    Applying Lemma \ref{lem:prime_must_be_one_of_them} again, it follows that $p_2 = q_j$
+    for some $j$ ($j = 1, 2, \dots, i - 1, i + 1, \dotsm n$). Cancel this factor from both sides of
+    (\ref{eq:factorization_divided_once}), and continue the process. Eventually we will find that
+    each $p$ is a $q$. We cannot run out of $q$'s before all the $p$'s are gone, because we would
+    then have a product of primes equal to 1, which is impossible. If we repeat the argument with
+    the $p$'s and $q$'s interchanged, we see that each $q$ is a $p$. Thus the numbers $p_1,
+    p_2, \dots, p_m$ are rearrangement of $q_1, q_2, \dots q_r$ and the two factorizations differ only in the
+    order of the factors.
+  \end{proof}
+  
+  \begin{proof}
+    (Induction) The theorem is true, by inspection, for $n = 2$. Suppose that it is true for $n \leq k$.
+    Suppose that $k + 1$ has two representations:
+    
+    \begin{equation*}
+      k + 1 = p_1p_2\cdots p_m = q_1q_2\cdots q_r\;\text{.}
+    \end{equation*}
+    
+    As in the last proof, $p_1 = q_i$ for some $i$, so
+    
+    \begin{equation*}
+      p_2p_3\cdots p_m = q_1q_2\cdots q_{i-1}q_{i+1}\cdots q_r\;\text{.}
+    \end{equation*}
+    
+    But this number is less than or equal to $k$, and by the induction assumption, its prime decomposition
+    is unique. Hence the integers $q_1, q_2, \dots, q_{i-1}, q_{i + 1}, \dots, q_r$ are a rearrangement of
+    $p_2, p_3, \dots, p_m$, and since $p_1 = q_i$ the proof is complete.
+  \end{proof}
+  
+  \begin{definition}
+    From the unique factorization theorem it follows that each positive integer can be written in exactly
+    one way in the form
+    
+    \begin{equation*}
+      n = p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}
+    \end{equation*}
+    
+     where $e_i \geq 1, i = 1, 2, \dots, k$, each $p_i$ is a prime, and $p_i \neq p_j$ for $i \neq j$.
+     We call this representation the \textbf{prime-power decomposition} of $n$,
+  \end{definition}
+  
+  \begin{theorem}
+    If $e_1 \geq 0$, $f_1 \geq 0$, $(i = 1, 2, \dots k)$,
+    
+    \begin{equation*}
+      m = p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k} \;\;\text{and}\;\; n = p_1^{f_1}p_2^{f_2}\cdots p_k^{f_k}\;\text{,}
+    \end{equation*}
+    
+    then
+    
+    \begin{equation*}
+      (m, n) = p_1^{g_1}p_2^{g_2}\cdots p_k^{g_k}
+    \end{equation*}
+    
+    where $g = \text{min}(e_i,f_i)$, $i = 1, 2, \dots k$
+  \end{theorem}
+  
+  \section{Linear Diophantine Equations}
+  
+  \begin{definition}
+    Equations in which we look for solutions in a restricted class of numbers\textemdash be they positive
+    integers, negative integers, rational numbers, or whatever\textemdash are called \textbf{diophantine
+    equations}.
+  \end{definition}
+  
+  \subparagraph{Example} $x^2 + y^2 = z^2$ where we look for solutions in integers. One such solution
+  is $x = 3$, $y = 4$, $z = 5$.
+  
+  \begin{lemma}
+    If $x_0, y_0$ is a solutions of $ax + by = c$, then so is
+    
+    \begin{equation*}
+      x_0 + bt, y_0 - at
+    \end{equation*}
+    
+    for any integer $t$.
+  \end{lemma}
+  
+  \subparagraph{Example} $x + 2y = 4$ has $x = 0, y = 2$ as one of its solution. If we set $t = 2$, then
+  
+  \begin{align*}
+    x &= 0 + 2 \cdot 2 = 4 \\
+    y &= 2 - 1 \cdot 2 = 0
+  \end{align*}
+  
+  is also a solution for the diophantine equation.
+  
+  \begin{proof}
+    We are given that $ax_0 + by_0 = c$. Thus
+    
+    \begin{align*}
+      a(x_0 + bt) + b(y_0 - at) &= ax_0 + abt + by_0 - bat \\
+      &= ax_0 + by_0 \\
+      &= c
+    \end{align*}
+    
+    so $x_0 + bt, y_0 - at$ satisfies the equation too.
+  \end{proof}
+  
+  \begin{lemma}
+    If $(a, b) \not\divides c$. then $ax + by = c$ has no solutions, and if $(a, b) \divides c$, then
+    $ax + by = c$ has a solution.
+  \end{lemma}
+  
+  \subparagraph{Example} The equation $2x + 4y = 5$ has no solution because $(2, 4) = 2 \not\divides 5$.
+  
+  \begin{proof}
+    Suppose that there are integers $x_0, y_0$ such that $ax_0 + by_0 = c$, Since $(a, b) \divides ax_0$ and
+    $(a, b) \divides by_0$, it follows that $(a, b) \divides c$. Conversely, suppose that $(a, b) \divides c$.
+    Then $c = m(a, b)$ for some $m$. From Theorem \ref{th:gcd_to_linear}, we know that there are integers $r$ and $s$ such that
+    
+    \begin{equation*}
+      ar + bs = (a, b)
+    \end{equation*}
+    
+    Then
+    
+    \begin{equation*}
+      a(rm) + b(sm) = m(a, b) = c
+    \end{equation*}
+    
+    and $x = rm, y = sm$ is a solution.
+  \end{proof}
+  
+  \begin{lemma}
+    Suppose that $(a, b) = 1$ and $x_0, y_0$ is a solution of $ax + by = c$. Then all solutions of $ax + by = c$ are
+    given by
+    
+    \begin{align*}
+      x &= x_0 + bt \\
+      y &= y_0 - at
+    \end{align*}
+    
+    where $t$ is an integer.
+  \end{lemma}
+  
+  \begin{proof}
+    We see from Lemma 2 that the equation does have a solution, because $(a, b) = 1$ and $1 \divides c$ for all
+    $c$. Then, let $r, s$ be \textit{any} solution of $ax + by = c$. We want to show that $r = x_0 + bt$ and
+    $s = y_0 - at$ for some integer $t$. From $ax_0 + by_0 = c$ follows
+    
+    \begin{equation*}
+      c - c = (ax_0 + by_0) - (ar + bs)
+    \end{equation*}
+    
+    or
+    
+    \begin{equation}
+      a(x_0 - r) + b(y_0 - s) = 0
+      \label{eq:0697C052_6EA0_41C8_B3CB_348A6DA20C28}
+    \end{equation}
+    
+    Because $a \divides a(x_0 - r)$ and $a \divides 0$, we have $a \divides b(y_0 - s)$. But we have supposed that
+    $a$ and $b$ are relatively prime. It follows from Corollary 1.1 that $a \divides y_0 - s$. That is, there is an integer
+    $t$ such that
+    
+    \begin{equation}
+      at = y_0 - s
+      \label{eq:4229D1AA_9738_411C_AC87_33474E7DF1D4}
+    \end{equation}
+    
+    Substituting in (\ref{eq:0697C052_6EA0_41C8_B3CB_348A6DA20C28}), this gives
+    
+    \begin{equation*}
+      a(x_0 - r) + bat = 0
+    \end{equation*}
+    
+    Because $a \neq 0$, we may cancel it to get
+    
+    \begin{equation}
+      x_0 - r + bt = 0
+      \label{eq:2B9C5726_F9C3_49DA_A9D6_6B42D1E4246D}
+    \end{equation}
+    
+    But (\ref{eq:4229D1AA_9738_411C_AC87_33474E7DF1D4}) and (\ref{eq:2B9C5726_F9C3_49DA_A9D6_6B42D1E4246D}) say that
+    
+    \begin{align*}
+      s &= y_0 - at \\
+      r &= x_0 + bt
+    \end{align*}
+    
+    Since $r, s$ was \textit{any} solution, the lemma is proved.
+  \end{proof}
+  
+  \begin{theorem}
+    The linear diophantine equation $ax + by = c$ has no solutions if $(a, b) \not\divides c$. If $(a, b) \divides c$, there are
+    infinitely many solutions
+    
+    \begin{equation*}
+      x = r + \frac{b}{(a, b)}t,\;\;\;y = s - \frac{a}{(a, b)}t
+    \end{equation*}
+    
+    where $r$, $s$ is any solution and $t$ is an integer.
+  \end{theorem}
   
 \end{document}
 

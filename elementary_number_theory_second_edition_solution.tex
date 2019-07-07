@@ -4,10 +4,13 @@
 \usepackage{mathabx}
 \usepackage{amsthm}
 \usepackage{enumitem}
+\usepackage{bm}
+
+\usepackage{hyperref}
 
 \theoremstyle{definition}
-\newtheorem{exercise}{Exercise}
-\newtheorem{problem}{Problem}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{problem}{Problem}[section]
 
 \title{Exercises Solution for ``Elementary Number Theory: Second Edition by Underwood Dudley"}
 \date{2018-12-10}
@@ -419,5 +422,258 @@
     $m/n$ is an integer.
     
   \end{enumerate}
+  
+  \section{Unique Factorization}
+  
+  \begin{exercise}
+    How many even primes are there? How many whose last digit is 5?
+  \end{exercise}
+  
+  2 is a prime. But for other positive even numbers, by definition they are divisible by 2.
+  So there is only one even prime.
+  
+  5 is a prime. But for other positive numbers that has 5 as their last digit, the number
+  can be written as
+  
+  \begin{equation*}
+  10^nd_n ... + 100d_2 + 10d_1 + 5
+  \end{equation*}
+  
+  Where $d_1, d_2, ..., d_n$ are the digits of that number. All the terms are divisible by 5,
+  so the number itself is divisible by 5 which means that it is not a prime. Therefore the
+  only prime number whose last digit is 5 is 5 itself.
+  
+  \begin{exercise}
+    Using induction, show that every integer $n$ where $n > 1$ can be written as a product of primes.
+  \end{exercise}
+  
+  It is true for $n=2$, because 2 itself is a prime. Suppose it is true for $n \leq k$. If $k + 1$ is a prime, then we are
+  done. If not, then it is divisible by a prime $p_1$ by Lemma 1. So $k + 1 = p_1 q$ where $1 < q \leq k$,
+  But from the induction assumption, $q$ can be written as a product of primes $p_2p_3\cdots p_i$, so $k + 1$ can
+  be written as $p_1p_2p_3\cdots p_i$ which is a product as primes.
+  
+  \begin{exercise}
+    Write prime decompositions for 72 and 480.
+  \end{exercise}
+  
+  Just repeatedly do divisions using the first divisor that comes into mind.
+  
+  \begin{align*}
+    72 &= 2 \cdot 36 \\
+         &= 2 \cdot 2 \cdot 18 \\
+         &= 2 \cdot 2 \cdot 2 \cdot 9 \\
+         &= 2 \cdot 2 \cdot 2 \cdot 3 \cdot 3
+  \end{align*}
+  
+    \begin{align*}
+    480 &= 2 \cdot 240 \\
+           &= 2 \cdot 2 \cdot 120 \\
+           &= 2 \cdot 2 \cdot 2 \cdot 60 \\
+           &= 2 \cdot 2 \cdot 2 \cdot 2 \cdot 30 \\
+           &= 2 \cdot 2 \cdot 2 \cdot 2 \cdot 2 \cdot 15 \\
+           &= 2 \cdot 2 \cdot 2 \cdot 2 \cdot 2 \cdot 3 \cdot 5
+  \end{align*}
+  
+  \begin{exercise}
+    Which members of the set $4n + 1, n \geq 0$ less than 100 are not prome (like prime, but based on this set)?
+  \end{exercise}
+  
+  \begin{itemize}
+    \item $25 = 5 \cdot 5$
+    \item $45 = 5 \cdot 9$
+    \item $65 = 5 \cdot 13$
+    \item $85 = 5 \cdot 17$
+  \end{itemize}
+  
+  \begin{exercise}
+    What is the prime-power decomposition of 7950?
+  \end{exercise}
+  
+  We see that it is divisible by 2 and 5, so we get $7950 = 2 \cdot 5 \cdot 795$.
+  We divide it again by 5 to get $7950 = 2 \cdot 5 \cdot 5 \cdot 159$. Then
+  consulting the factor table, we see that 159 is divisible by 3, so we get
+  $7950 = 2 \cdot 3 \cdot 5 \cdot 5 \cdot 53$. Finally we see from the table
+  that 53 is a prime so we are done.
+  
+  \begin{problem}
+    Find the prime-prower decompositions of 1234, 34560, and 111111.
+  \end{problem}
+  
+  We can try repeatedly dividing it by 2, and if that fails 3, then 5, while checking
+  whether the quotient is a prime using the factor table.
+  
+  \begin{align*}
+    1234 &= 2 \cdot 617
+  \end{align*}
+  
+  \begin{align*}
+    34560 &= 2^8 \cdot 3^3 \cdot 5
+  \end{align*}
+  
+  111111 can be seen at a glance as three 11s, so they are just the sum of 11
+  times a multiple of 10 which changes their decimal place.
+  
+  \begin{align*}
+    111111 &= 110000 + 1100 + 11 \\
+    &= 11 (10000 + 100 + 1) \\
+    &= 11 \cdot 10101
+  \end{align*}
+  
+  Now note that shifting 111 around, we get 11100 + 111 = 11211 which is not
+  quite 10101, but 11211 - 1110 = 10101. Therefore
+  
+  \begin{align*}
+    10101 &= 11100 - 1110 + 111 \\
+    &= 111 (100 - 10 + 1) \\
+    &= 111 \cdot 91
+  \end{align*}
+  
+  Therefore
+  
+  \begin{align*}
+    111111 &= 11 \cdot 10101 \\
+    &= 11 \cdot 111 \cdot 91
+  \end{align*}
+  
+  111 and 91 are both composite, and it is quite easy to check their factorization which gives
+  
+  \begin{align*}
+    111111 &= 3 \cdot 7 \cdot 11 \cdot 13 \cdot 37
+  \end{align*}
+  
+  \begin{problem}
+    Find the prime-power decompositions of 2345, 45670, and 999999999999.
+    (Note that $101 \divides 1000001$.)
+  \end{problem}
+  
+  With the help of the factor table, we can see that
+  
+  \begin{equation*}
+    2345 = 5 \cdot 7 \cdot 67
+  \end{equation*}
+  
+  and
+  
+  \begin{equation*}
+    45670 = 2 \cdot 5 \cdot 4567
+  \end{equation*}
+  
+  For 999999999999, first note that the number is divisible by $9 = 3 \cdot 3$, so
+  
+  \begin{equation*}
+    999999999999 / (3 \cdot 3) = 111111111111
+  \end{equation*}
+  
+  In addition, $111111111111 / 11 =  10101010101$
+  
+  The digits of 10101010101 is just 101 shifted several times, and indeed
+  
+  \begin{align*}
+    10101010101 &= 10100000000 + 1010000 + 101 \\
+    &= 101 (100000000 + 10000 + 1) \\
+    &= 101 \cdot 100010001
+  \end{align*}
+  
+  After that we can repeatedly divide by small primes, which gives
+  
+  \begin{align*}
+    100010001 = 3 \cdot 7 \cdot 13 \cdot 366337
+  \end{align*}
+  
+  Note that $3663 = 3330 + 333 = 333 \cdot 11$, and $333 = 37 \cdot 9$.
+  Indeed $366337 = 37 \cdot 9901$. We can check from the factor table that 9901 is a prime,
+  so by gathering all of the factors above we get
+  
+  \begin{align*}
+    999999999999 = 3^3 \cdot 7 \cdot 11 \cdot 13 \cdot 37 \cdot 101 \cdot 9901
+  \end{align*}
+  
+  \begin{problem}
+    Tartaglia (1556) claimed that the sums  $1 + 2 + 4$, $1 + 2 + 4 + 8$, $1 + 2 + 4 + 8 + 16$,
+    $\dots$ are alternately prime and composite. Show that he was wrong.
+  \end{problem}
+  
+    Written in binary, the sequence is $111$, $1111$, $11111$, $\dots$ so their values are
+    $2^n - 1$ where $n \geq 3$. The values are then $\bm{7}, 15, \bm{31}, 63,
+    \bm{127}, 255, \bm{511}, \dots$ where the numbers in bold are supposed to be prime.
+    
+    However we can confirm that $511 = 7 \cdot 73$, so Tartaglia's claim is false.
+  
+  \begin{problem}
+    ~
+  \end{problem}
+  
+  \begin{enumerate}[label=\alph*)]
+    \item DeBouvelles (1509) claimed that one or both of $6n + 1$ and $6n - 1$ are primes for all $n \geq 1$. Show that he was wrong.
+    \item Show that there are infinitely many $n$ such that both $6n - 1$ and $6n + 1$ are composite.
+  \end{enumerate}
+  
+  TODO
+  
+  \url{https://math.stackexchange.com/questions/102493/infinite-number-of-composite-pairs-6n-1-6n-1}
+  
+  \begin{problem}
+    Prove that if $n$ is a square, then each exponent in its prime-power decomposition is even.
+  \end{problem}
+  
+  Suppose that $n = a^2$ and $a = p_1^{e_1}p_2^{e_2} \cdots p_m^{e_m}$ is the prime-power
+  decomposition of $a$. Then it follows that
+  
+  \begin{align*}
+    n &= \big(p_1^{e_1}p_2^{e_2} \cdots p_m^{e_m}\big)^2 \\
+    &= p_1^{2e_1}p_2^{2e_2} \cdots p_m^{2e_m}
+  \end{align*}
+  
+  \begin{problem}
+    Prove that if each exponent in the prime-power decomposition of $n$ is even, then $n$ is a square.
+  \end{problem}
+  
+  \begin{align*}
+    n &= p_1^{2e_1}p_2^{2e_2} \cdots p_m^{2e_m} \\
+    &= \big(p_1^{e_1}p_2^{e_2} \cdots p_m^{e_m}\big)^2 \\
+    &= m^2
+  \end{align*}
+  
+  where $m$ is an integer. Therefore $n$ is a square.
+  
+  \begin{problem}
+    Find the smallest integer divisible by 2 and 3 which is simultaneously a square and a fifth power.
+  \end{problem}
+  
+  If it is a square, its prime-power decomposition must have the form of
+  
+  \begin{equation*}
+    p_1^{2e_1}p_2^{2e_2} \cdots p_m^{2e_m}
+  \end{equation*}
+  
+  And if it is a fifth power, it must have the form
+  
+  \begin{equation*}
+    p_1^{5f_1}p_2^{5f_2} \cdots p_m^{5f_m}
+  \end{equation*}
+  
+  To satisfy both, the form must then be
+  
+  \begin{equation*}
+    p_1^{2\cdot5g_1}p_2^{2\cdot5g_2} \cdots p_m^{2\cdot5g_m} = p_1^{10g_1}p_2^{10g_2} \cdots p_m^{10g_m}
+  \end{equation*}
+  
+  Since we want to find the smallest such number, we have to set $g_k = 1$ for all $k$, so the number is
+  
+  \begin{equation*}
+    p_1^{10} p_2^{10} \cdots p_m^{10}
+  \end{equation*}
+  
+  Furthermore, because the number is both divisible by 2 and 3, it must be
+  
+  \begin{equation*}
+    2^{10} 3^{10} p_3^{10} \cdots p_m^{10}
+  \end{equation*}
+  
+  But again, we want the smallest such number so $m = 2$, which means the number is
+  
+  \begin{equation*}
+    2^{10} 3^{10} = 60466176
+  \end{equation*}
 
 \end{document}
