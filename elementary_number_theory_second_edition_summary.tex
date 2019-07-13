@@ -115,7 +115,8 @@
   \subparagraph{Examples} $(4, 5) = 1$, so 4 and 5 are relatively prime. 10 and 7 are also relatively prime.
   
   \begin{theorem}[The Division Algorithm]
-    Given positive integers $a$ and $b$, $b \neq 0$, there exist unique integers $q$ and $r$, with $0 \leq r < b$ such that
+    \label{th:division_algorithm} Given positive integers $a$ and $b$, $b \neq 0$, there exist unique integers
+    $q$ and $r$, with $0 \leq r < b$ such that
     
     \begin{equation*}
       a = bq + r
@@ -688,6 +689,198 @@
     
     where $r$, $s$ is any solution and $t$ is an integer.
   \end{theorem}
+  
+  \section{Congruences}
+  
+  \begin{definition}
+    We say that $a$ is \textbf{congruent} to $b$ modulo $m$ (in symbols, $a \equiv b \pmod{m}$) if and only if $m \divides (a - b)$
+    and we will suppose always that $m > 0$.
+  \end{definition}
+  
+  \begin{theorem}
+    $a \equiv b \pmod{b}$ if and only if there is an integer $k$ such that $a = b + km$.
+  \end{theorem}
+  
+  \begin{proof}
+    Suppose that $a \equiv b \pmod{b}$. Then, from the definition of congruence, $m \divides (a - b)$. From the definition of
+    divisibility, we know that since there is an integer $k$ such that $km = a - b$, then $a = b + km$.
+    
+    Conversely, suppose that $a = b + km$. Then $a - b = km$, which means that $(a - b)$ is divisible by $m$. But that is exactly the definition
+    of $a \equiv b \pmod{b}$.
+  \end{proof}
+  
+  \begin{theorem}
+    Every integer is congruent (mod $m$) to exactly one of $0, 1, \dots, m - 1$.
+  \end{theorem}
+  
+  \begin{proof}
+    Write $a = qm + r$, with $0 \leq r < m$. We know from Theorem \ref{th:division_algorithm} that $q$ and $r$ are uniquely determined.
+    Since $a \equiv r \pmod{m}$, the theorem is proved.
+  \end{proof}
+  
+  \begin{definition}
+    The number $r$ in the last theorem is called the \textbf{least residue} of $a$ (mod $m$).
+  \end{definition}
+  
+  \begin{theorem}
+    $a \equiv b \pmod{m}$ if and only if $a$ and $b$ leave the same remainder on division by $m$.
+  \end{theorem}
+  
+  \begin{proof}
+    If $a$ and $b$ leave the same remainder $r$ when divided by $m$, then
+    
+    \begin{equation*}
+      a = q_1m + r \;\;\text{and}\;\; b = q_2m + r
+    \end{equation*}
+    
+    for some integers $q_1$ and $q_2$. It follows that
+    
+    \begin{equation*}
+      a - b = (q_1m + r) - (q_2m + r) = m(q_1 - q_2)
+    \end{equation*}
+    
+    From the definition of divisibility, we have $m \divides (a - b)$. From the definition of congruence, we conclude that
+    $a \equiv b \pmod{m}$. To prove the converse, suppose that $a \equiv b \pmod{m}$. Then
+    $a \equiv b \equiv r \pmod{m}$, where $r$ is a least residue modulo $m$. Then from Theorem 1,
+    
+    \begin{equation*}
+      a = q_1m + r \;\;\text{and}\;\; b = q_2m + r
+    \end{equation*}
+    
+    for some integers $q_1$ and $q_2$; since $0 \leq r < m$, the theorem is proved.
+  \end{proof}
+  
+  \begin{lemma}
+    For integers $a$, $b$, $c$, and $d$
+    \begin{enumerate}[label=\alph*)]
+      \item $a \equiv a \pmod{m}$.
+      \item If $a \equiv b \pmod{m}$, then $b \equiv a \pmod{m}$.
+      \item If $a \equiv b \pmod{m}$ and $b \equiv c \pmod{m}$, then $a \equiv c \pmod{m}$.
+      \item If $a \equiv b \pmod{m}$ and $c \equiv d \pmod{m}$, then $a + c \equiv b + d \pmod{m}$.
+      \item If $a \equiv b \pmod{m}$ and $c \equiv d \pmod{m}$, then $ac \equiv bd \pmod{m}$.
+    \end{enumerate}
+  \end{lemma}
+  
+  \begin{proof}
+    ~
+  \end{proof}
+  
+  \begin{enumerate}[label=\alph*)]
+    \item $a - a = 0 = m \cdot 0$, so $m \divides (a - a)$, which means $a \equiv a \pmod{m}$.
+    \item We are given $a - b = km$, so $b - a = (-k)m$, which means $b \equiv a \pmod{m}$.
+    \item The first condition means that $a$ and $b$ leaves the same remainder $r_1$ when divided by $m$.
+      The second means that $b$ and $c$ leaves the same remainder $r_2$ when divided by $m$.
+      Because both $r_1$ and $r_2$ are the remainders when $b$ is divided by $m$, $r_1 = r_2$.
+      Thus $a$ and $c$ has the same remainder when divided by $m$, or $a \equiv c \pmod{m}$.
+    \item We are given that $a - b = km$ and $c - d = jm$ for some integers $k$ and $j$; thus
+    
+    \begin{align*}
+      (a + c) - (b + d) &= (a - b) + (c - d) \\
+        &= km - jm \\
+        &= m(k - j)
+    \end{align*}
+    
+    from the definition of congruence, $a + c \equiv b + d \pmod{m}$.
+    
+    \item We are given that $b - a = km$ and $d - c = jm$ for some integers $k$ and $j$; thus
+    
+    \begin{align*}
+      ac - bd &= ac - (a + km)(c + jm) \\
+        &= ac - ac - ajm - ckm - kjm^2 \\
+        &= m (-aj -ck - kjm)
+    \end{align*}
+    
+    from the definition of congruence, $ac \equiv bd \pmod{m}$.
+  \end{enumerate}
+  
+  \begin{theorem}
+    If $ac \equiv bc \pmod{m}$ and $(c, m) = 1$, then $a \equiv b \pmod{m}$.
+  \end{theorem}
+  
+  \begin{proof}
+    From the definition of congruence, $m \divides (ac - bc)$; consequently, $m \divides c(a - b)$.
+    Because $(m, c) = 1$, we can conlude from Theorem 5 of Section 1 that $m \divides (a - b)$.
+    That is, $a \equiv b \pmod{m}$.
+  \end{proof}
+  
+  \begin{theorem}
+    If $ac \equiv bc \pmod{m}$ and $(c, m) = d$, then $a \equiv b \pmod{m/d}$.
+  \end{theorem}
+  
+  \begin{proof}
+    If $ac \equiv bc \pmod{m}$, then $m \divides c(a - b)$ and $m/d \divides (c/d)(a - b)$.
+    Since we know that $(m/d, c/d) = 1$, from Theorem 5 of Section 1 we get $m/d \divides (a - b)$,
+    so $a \equiv b \pmod{m/d}$.
+  \end{proof}
+  
+  \begin{theorem}
+    Every integer is congruent $\pmod{9}$ to the sum of its digits.
+  \end{theorem}
+  
+  \begin{proof}
+    Take an integer $n$, and let its digital representation be
+
+    \[ d_kd_{k-1}d_{k-2}\dots d_1d_0 \]
+
+    That is,
+    
+    \begin{align*}
+      n &= d_k10^k + d_{k-1}10^{k-1} + d_{k-2}10^{k-2} + \dots + d_1 10^1 + d_0 10^0 \\
+        &\equiv d_k + d_{k-1} + d_{k-2} + \dots + d_0 \pmod{9}
+    \end{align*}
+  \end{proof}
+  
+  \section{Linear Congruences}
+  
+  \begin{definition}
+    A solution to $ax \equiv b \pmod{m}$ is a number $r$ such that $ar \equiv b \pmod{m}$
+    and $r$ is a least residue (mod $m$). There might be no solutions, exaction one solution,
+    or many solutions.
+  \end{definition}
+  
+  \begin{lemma}
+    If $(a, m) \not\divides b$, then $ax \equiv b \pmod{m}$ has no solutions.
+  \end{lemma}
+  
+  \begin{proof}
+    We will prove the contrapositive, which is logically the same thing: if $ax \equiv b \pmod{m}$
+    has a solution, then $(a, m) \divides b$. Suppose that $r$ is a solution. Then $ar \equiv b \pmod{m}$,
+    and from the definition of congruence, $m \divides (ar - b)$, or from the definition of divides,
+    $ar - b = km$ for some $k$. Since $(a, b) \divides a$ and $(a, b) \divides km$, it follows that
+    $(a, m) \divides b$.
+  \end{proof}
+  
+  \begin{lemma}
+    If $(a, m) = 1$, then $ax \equiv b \pmod{m}$ has exactly one solution.
+  \end{lemma}
+  
+  \begin{proof}
+    Since $(a, m) = 1$, we know that there are integers $r$ and $s$ such that $ar + ms = 1$.
+    Multiplying by $b$ gives
+    
+    \[ a(rb) + m(sb) = b \]
+    
+    Which means
+    
+    \[ a(rb) \equiv b \pmod{m} \]
+    
+    The least residue of $rb$ modulo $m$ is then a solution of the linear congruence.
+    
+    It remains to show that there is not more than one solution. Suppose that both $r$ and $s$
+    are solutions. That is, since
+    
+    \[ ar \equiv b \pmod{m} \;\;\;\text{and}\;\;\; as \equiv b \pmod{m} \]
+    
+    Then $ar \equiv as \pmod{m}$. Because $(a, m) = 1$, we can apply Theorem 4 of the last section,
+    cancel the common factor, and get $r \equiv s \pmod{m}$. That is, $m \divides (r - s)$. But $r$
+    and $s$ are least residues (mod $m$), so
+    
+    \[ 0 \leq r < m \;\;\;and\;\;\; 0 \leq s < m \]
+    
+    Thus $-m < r - s < m$; together with $m \divides (r - s)$, this gives $r - s = 0$, or $r = s$, and
+    the solution is unique.
+    
+  \end{proof}
   
 \end{document}
 
