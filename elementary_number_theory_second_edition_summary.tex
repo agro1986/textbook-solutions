@@ -6,15 +6,19 @@
 \usepackage{amsthm}
 \usepackage{enumitem}
 \usepackage{bm}
+\usepackage{upgreek}
 
 \theoremstyle{definition} % by default it is "plain" which will italicize the body
 \newtheorem{theorem}{Theorem}[section] % will be numbered section.theorem
 
 \theoremstyle{definition}
-\newtheorem{corollary}{Corollary}[theorem] % will be numbered section.theorem.corollary
+\newtheorem{corollary}{Corollary}[section] % will be numbered section.theorem.corollary
+% \newtheorem{corollary}{Corollary}[theorem] % will be numbered section.theorem.corollary
 
 \theoremstyle{definition}
 \newtheorem{lemma}{Lemma}[section]
+
+\newcommand{\tot}{\upphi}
 
 % \newtheorem{lemma}[theorem]{Lemma} % will follow the numbering as if it is a theorem.
 % So after theorem 1.2 comes lemma 1.3
@@ -65,6 +69,18 @@
   \end{lemma}
   
   \subparagraph{Example} $2 \divides 4$ and $2 \divides 10$, so $2 \divides 14$.
+  
+  \begin{proof}
+    From the definition, we know that there are integers $q$ and $r$ such that
+    
+    \[ dq = a \;\;\;\text{and}\;\;\; dr = b \]
+    
+    Thus
+    
+    \[ a + b = d(q + r) \]
+    
+    so from the definition again, $d \divides (a + b)$.
+  \end{proof}
   
   \begin{lemma}
     If $d \divides a_1$, $d \divides a_2$, $\dots$ $d \divides a_n$, then $d \divides (c_1a_1 + c_2a_2 + \dots + c_na_n)$ for any integers $c_1, c_2, \dots, c_n$
@@ -834,7 +850,7 @@
   
   \begin{definition}
     A solution to $ax \equiv b \pmod{m}$ is a number $r$ such that $ar \equiv b \pmod{m}$
-    and $r$ is a least residue (mod $m$). There might be no solutions, exaction one solution,
+    and $r$ is a least residue (mod $m$). There might be no solutions, exactly one solution,
     or many solutions.
   \end{definition}
   
@@ -846,7 +862,7 @@
     We will prove the contrapositive, which is logically the same thing: if $ax \equiv b \pmod{m}$
     has a solution, then $(a, m) \divides b$. Suppose that $r$ is a solution. Then $ar \equiv b \pmod{m}$,
     and from the definition of congruence, $m \divides (ar - b)$, or from the definition of divides,
-    $ar - b = km$ for some $k$. Since $(a, b) \divides a$ and $(a, b) \divides km$, it follows that
+    $ar - b = km$ for some $k$. Since $(a, m) \divides a$ and $(a, )m \divides km$, it follows that
     $(a, m) \divides b$.
   \end{proof}
   
@@ -879,8 +895,388 @@
     
     Thus $-m < r - s < m$; together with $m \divides (r - s)$, this gives $r - s = 0$, or $r = s$, and
     the solution is unique.
-    
   \end{proof}
+  
+  \begin{lemma}
+    Let $d = (a, m)$. If $d \divides b$, then $ax \equiv b \pmod{m}$ has exactly $d$ solutions.
+  \end{lemma}
+  
+  \begin{proof}
+    If we cancel the common factor, we get a congruence $(a/d)x \equiv (b/d)\pmod{m/d}$,
+    which we know has exactly one solution, because $(a/d, m/d) = 1$. Call it $r$,
+    and let $s$ be any other solution of $ax \equiv b \pmod{m}$. Then $ar \equiv as \equiv b
+    \pmod{m}$, and it follows from Theorem 5 of the last section that $r \equiv s \pmod{m/d}$.
+    That is, $s - r = k(m/d)$ or $s = r + k(m/d)$ for some $k$. Putting $k = 0, 1, \dots, d - 1$,
+    we get $0 \leq k(m/d) \leq (d-1)(m/d)$. Combined with $0 \leq r < m/d$, we conclude that
+    $s$ are numbers which are least residues (mod $m$), since
+    
+    \[ 0 \leq r + k(m/d) < (m/d) + (d-1)(m/d) = m \]
+    
+    and they all satisfy $ax \equiv b \pmod{m}$, because
+    
+    \[ (a/d)(r + k(m/d)) \equiv (a/d)r \equiv b/d \pmod{m/d} \]
+    
+    and this implies (by definition of congruence and multiplying both sides by $d$)
+    
+    \[ a(r + k(m/d)) \equiv b \pmod{m} \]
+  \end{proof}
+  
+  \begin{theorem}
+    $ax \equiv b \pmod{m}$ has no solutions if $(a, m) \not\divides b$. If $(a, m) \divides b$,
+    then there are exactly $(a, m)$ solutions.
+  \end{theorem}
+  
+  \begin{proof}
+    This is just a summary of the previous three lemmas.
+  \end{proof}
+  
+  \begin{theorem}[The Chinese Remainder Theorem]
+    The system of congruences
+    
+    \begin{equation} x \equiv a_i \pmod{m_i}, i = 1, 2, \dots, k \label{eq:chinese_remainder}\end{equation}
+    
+    where $(m_i, m_j) = 1$ if $i \neq j$, has a unique solution modulo $m_1m_2\cdots m_k$.
+  \end{theorem}
+  
+  \begin{proof}
+    We first show, by induction, that the system (\ref{eq:chinese_remainder}) has a solution. The result
+    is obvious when $k = 1$. Let us consider the case $k = 2$. If $x \equiv a_1 \pmod{m_1}$, then
+    $x = a_1 + k_1m_1$ for some $k_1$. If in addition $x \equiv a_2 \pmod{m_2}$, then
+    
+    \[ a_1 + k_1m_1 \equiv a_2 \pmod{m_2} \]
+    
+    or
+    
+    \[ k_1m_1 \equiv a_2 - a_1 \pmod{m_2} \]
+    
+    Because $(m_2, m_1) = 1$, we know that this congruence, with $k_1$ as the unknown, has a unique
+    solution modulo $m_2$. Call it $t$. Then $k_1 = t + k_2m_2$ for some $k_2$, and
+    
+    \[ x = a_1 + (t + k_2m_2)m_1 \equiv a_1 + tm_1 \pmod{m_1m_2} \]
+    
+    satisfies both congruences.
+    
+    Suppose that system (\ref{eq:chinese_remainder}) has a solution (mod $m_1m_2\dots m_k$) for
+    $k = r - 1$. Then there is a solution, $s$, to the system
+    
+    \[ x \equiv a_i\pmod{m_i}, i = 1, 2, \dots, r - 1 \]
+    
+    But the system
+    
+    \[ x \equiv s \pmod{m_1m_2\cdots m_{r-1}}\]
+    
+    \[ x\equiv a_r \pmod{m_r} \]
+    
+    has a solution modulo the product of the moduli, just as in the case $k = 2$, because
+    $(m_1m_2\cdots m_{k-1}, m_k) = 1$. (This statement is true because no prime that
+    divides $m_i, i = 1, 2, \dots, k-1$, can divide $m_k$)
+    
+    It is easy to see that the solution is unique. If $r$ and $s$ are both solutions of the
+    system, then
+    
+    \[ r \equiv s \equiv a_i \pmod{m_i}, i = 1, 2, \dots, k \]
+    
+    So $m_i \divides (r - s), i = 1, 2, \dots, k$ Thus $r - s$ is a common multiple of
+    $m_1, m_2, \dots, m_k$, and because the moduli are relatively prime in pairs,
+    we have $m_1m_2\cdots m_k \divides (r - s)$. But since $r$ and $s$ are
+    least residues modulo $m_1m_2\cdots m_k$,
+    
+    \[ -m_1m_2\cdots m_k < r - s < m_1m_2\cdots m_k \]
+    
+    whence $r - s = 0$.
+  \end{proof}
+  
+  \section{Fermat's and Wilson's Theorems}
+  
+  TODO
+  
+  \section{The Divisors of an Integer}
+  
+  TODO
+  
+  \section{Perfect Numbers}
+  
+  TODO
+  
+  \section{Euler's Theorem and Function}
+  
+  \begin{definition}
+    If $m$ is a positive integer, let $\tot(m)$ denote the number of positive integers
+    less than or equal to $m$ and relatively prime to $m$. We will call $\tot$
+    \textbf{Euler's $\tot$-function (totient function)}.
+  \end{definition}
+  
+  \subparagraph{Example} $\tot(6) = 2$ because 1 and 5 are the only two numbers less than
+  or equal to 6 that are relatively prime to 6.
+  
+  $\tot(10) = 4$ because 1, 3, 7, and 9 are the only four numbers less than
+  or equal to 10 that are relatively prime to 10.
+  
+  \begin{lemma}
+    If $(a, m) = 1$ and $r_1, r_2, \dots, r_{\tot(m)}$ are the positive integers less than $m$ and
+    relatively prime to $m$, then the least residues (mod $m$) of
+    
+    \begin{equation}
+      ar_1, ar_2, \dots, ar_{\tot(m)}
+    \end{equation}
+    
+    are a permutation of
+    
+    \begin{equation*}
+      r_1, r_2, \dots, r_{\tot(m)}
+    \end{equation*}
+  \end{lemma}
+  
+  \subparagraph{Example} With $m = 10$ and $a = 3$, the least residues of $3 \cdot 1,
+  3 \cdot 3, 3 \cdot 7, 3 \cdot 9$ are $3, 9, 1, 7$ which is a permutation of $1, 3, 7, 9$.
+  
+  \begin{proof}
+    Since there are exactly $\tot(m)$ numbers in the set (1), to prove that their least
+    residues are a permutation of the $\tot(m)$ numbers $r_1, r_2, \dots, r_{\tot(m)}$
+    we need to show that they are all different and that they are all relatively prime to $m$.
+    To show that they are all different, suppose that
+    
+    \begin{equation*}
+      ar_i \equiv ar_j \pmod{m}
+    \end{equation*}
+    
+    for some $i$ and $j$ ($1 \leq i \leq \tot(m)$, $1 \leq j \leq \tot(m)$). Since $(a, m) = 1$,
+    we can cancel $a$ from both sides of the congruence to get $r_i \equiv r_j \pmod{m}$.
+    Since $r_i$ and $r_j$ are least residues (mod $m$), it follows that $r_i = r_j$. Hence
+    $r_i \neq r_j$ implies $ar_i \nequiv ar_j \pmod{m}$, so the numbers in (1) are all different.
+    
+    To prove that all the number is (1) are relatively prime to $m$, suppose that $p$ is a prime
+    common divisor of $ar_i$ and $m$ for some $i$, $1 \leq i \leq \tot(m)$. Since $p$ is prime,
+    either $p \divides a$ or $p \divides r_i$. Thus either $p$ is a common divisor of $a$ and $m$
+    or of $r_i$ and $m$. But $(a, m) = (r_i, m) = 1$, so both cases are impossible. Therefore
+    $(ar_i, m) = 1$ for each $i$, $i = 1, 2, \dots, \tot(m)$.
+  \end{proof}
+  
+  \begin{theorem}
+    Suppose that $m \geq 1$ and $(a, m) = 1$. Then $a^{\tot(m)} \equiv 1 \pmod{m}$.
+  \end{theorem}
+  
+  \subparagraph{Example} $(3, 8) = 1$ and $\tot(8) = 4$, so $3^4 \equiv 9 \cdot 9 \equiv 1 \cdot 1 \equiv 1 \pmod{8}$.
+  
+  \begin{proof}
+    The theorem is true when $m = p$, a prime. Every positive integer less than $p$
+    is relatively prime to it, so $\tot(p) = p - 1$, and by Fermat's Theorem $a^{p - 1} \equiv 1
+    \pmod{p}$ when $(a, p) = 1$.
+    
+    The theorem is also true for $m = 1$, since the definition of $\tot$ gives $\tot(1) = 1$,
+    and $a^1 \equiv 1 \equiv 0 \pmod{1}$ for any integer $a$.
+    
+    More generally, for $m \neq 1$, we know from Lemma 1 that
+    
+    \begin{align*}
+      r_1r_2\cdots r_{\tot(m)} &\equiv (ar_1)(ar_2)\cdots (ar_{\tot(m)}) \\
+      &\equiv a^{\tot(m)}(r_1r_2\cdots r_{\tot(m)}) \pmod{m}
+    \end{align*}
+    
+    Because each of $r_1, r_2, \dots, r_{\tot(m)}$ is relatively prime to $m$, their product is also.
+    Thus that factor may be canceled in the last congruence, and we get
+    
+    \[ 1 \equiv a^{\tot(m)} \pmod{m} \]
+  \end{proof}
+  
+  \begin{lemma}
+    $\tot(p^n) = p^{n-1}(p - 1)$ for all prime $p$ and positive integers $n$.
+    \label{lem:totient_prime}
+  \end{lemma}
+  
+  \subparagraph{Example} $\tot(9) = \tot(3^2) = 3^1\cdot(3-1) = 6$. Indeed there are 6 positive
+  numbers less than or equal to 9 which are relatively prime to 9: 1, 2, 4, 5, 7, 8.
+  
+  \begin{proof}
+    The positive integers less than or equal to $p^n$ which are \textit{not} relatively prime
+    to $p^n$ are exactly the multiples of $p$:
+    
+    \[
+      1\cdot p, 2\cdot p, 3\cdot p, \dots, (p^{n-1})p,
+    \]
+    
+    and there are $p^{n-1}$ of them. Since there are in all $p^n$ positive integers less than
+    or equal to $p^n$, we have
+    
+    \[
+      \tot(p^n) = p^n - p^{n-1} = p^{n - 1}(p - 1)
+    \]
+  \end{proof}
+  
+  \begin{lemma}
+    If $(a, m) = 1$ and $a \equiv b \pmod{m}$, then $(b, m) = 1$.
+  \end{lemma}
+  
+  \subparagraph{Example} $(3, 4) = 1$ and $3 \equiv 11 \pmod{m}$, so $(11, 4) = 1$.
+  
+  \begin{proof}
+    This follows from the fact that $b = a + km$ for some $k$, so $a = b - km$.
+    If $(b, m) = d$ where $d > 1$, then because $d \divides b$ and $d \divides km$,
+    it follows that $d \divides a$ which means $(a, m) = d$ which is a contradiction.
+  \end{proof}
+  
+  \begin{corollary}
+  If the least residues (mod $m$) of
+  
+  \begin{equation}
+    r_1, r_2, \dots, r_m
+  \end{equation}
+  
+  are a permutation of 0, 1, \dots, m - 1, then (2) contains exactly $\tot(m)$ elements
+  relatively prime to $m$.
+  \end{corollary}
+  
+  \begin{theorem}
+    $\tot$ is multiplicative.
+  \end{theorem}
+  
+  \subparagraph{Example} Because $(2, 3) = 1$, $\tot(6) = \tot(2\dot 3) = \tot(2)\tot(3) = 2$.
+  Indeed the only two numbers less than or equal to 6 and is relatively prime to 6 are 1 and 5.
+  
+  \begin{proof}
+    Suppose that $(m, n) = 1$ and write the numbers from 1 to $mn$ as follows:
+    
+    \begin{equation*}
+    \begin{matrix}
+      1 & m + 1 & 2m + 1 & \dots & (n-1)m + 1 \\
+      2 & m + 2 & 2m + 2 & \dots & (n-1)m + 2 \\
+         &           &  \vdots         &           \\
+      m & 2m & 3m & \dots & mn
+    \end{matrix}
+    \end{equation*}
+    
+    Suppose that $(m, r) = d$ and $d > 1$. Then we claim that no element in
+    the $r$-th row of the array:
+    
+    \begin{equation*}
+    \begin{matrix}
+      r & m + r & 2m + r & \dots & km + r  & \dots & (n-1)m + r
+    \end{matrix}
+    \end{equation*}
+    
+    is relatively prime to $mn$. This is so because if $d \divides m$ and
+    $d \divides r$, then $d \divides (km + r)$ for any $k$. So, if we are looking
+    for numbers that are relatively prime to $mn$, we will not find any except
+    in those rows whose first element is relatively prime to $m$. There are
+    $\tot(m)$ rows in total.
+    
+    Suppose we can show that there are exactly $\tot(n)$ numbers relatively
+    prime to $mn$ in each of the rows that have first elements relatively prime
+    to $m$. Since there are $\tot(m)$ such rows, it will follow that the number
+    of integers in the whole array that are relatively prime to $mn$ is
+    $\tot(m)\tot(n)$: that is, $\tot(mn) = \tot(m)\tot(n)$, and the theorem will
+    be proved. But the numbers in the $r$-th row (where $r$ and $m$ are
+    relatively prime) are
+    
+    \begin{equation}
+    \begin{matrix}
+      r & m + r & 2m + r & \dots & km + r  & \dots & (n-1)m + r
+    \end{matrix}
+    \end{equation}
+    
+    and we claim that their least residues (mod $n$) are a permutation of
+    
+    \begin{equation}
+      0, 1, 2, \dots, (n-1)
+    \end{equation}
+    
+    To verify this claim, all we have to do is show that no two of the numbers
+    in (3) are congruent (mod $n$), because (3) contains $n$ elements, just
+    as (4) does. This is easy. suppose that
+    
+    \[
+      km + r \equiv jm + r \pmod{n}
+    \]
+    
+    with $0 \leq k < n$ and $0 \leq j < n$. Then $km \equiv jm \pmod{n}$, and
+    since $(m, n) = 1$, we have $k \equiv j \pmod{n}$. On account of the inequalities
+    on $k$ and $j$, it follows that $k = j$. Hence if $k \neq j$, then $km + r \nequiv jm + r \pmod{n}$,
+    and no two elements of (3) are congruent (mod $n$).
+    
+    By the Corollary to Lemma 3, we have that (3) contains exactly $\tot(n)$ elements relatively
+    prime to $n$. But from Lemma 3, every element in the $r$-th row of the array is
+    relatively prime to $m$. It follows that the $r$-th row of the array contains exactly
+    $\tot(n)$ elements relatively prime to $mn$. As noted, this completes the proof.
+  \end{proof}
+  
+  \begin{theorem}
+    If $n$ has a prime-power decomposition given by
+    
+    \[ n = p_1^{e_1} p_2^{e_2} \cdots p_k^{e_k} \]
+    
+    then
+    
+    \[ \tot(n) = p_1^{e_1-1}(p_1-1)p_2^{e_2-1}(p_2-1)\cdots p_k^{e_k-1}(p_k-1) \]
+  \end{theorem}
+  
+  \subparagraph{Example} $\tot(72) = \tot(2^3 \cdot 3^2) = \tot(2^3)\tot(3^2) = 2^2 \cdot 1 \cdot 3^1 \cdot 2 = 24$
+  
+  \begin{proof}
+    Because $\tot$ is multiplicative, Theorem 5 of Section 7 applies here to give
+    
+    \[ \tot(n) = \tot(p_1^{e_1})\tot(p_2^{e_2})\cdots \tot(p_k^{e_k}) \]
+    
+    If we apply Lemma \ref{lem:totient_prime} to each term on the right, the theorem is proved.
+  \end{proof}
+  
+  \begin{corollary}
+    If $n = p_1^{e_1} p_2^{e_2} \cdots p_k^{e_k}$, then
+    
+    \[ \tot(n) = n\left( 1 - \frac{1}{p_1}\right) \left(1 - \frac{1}{p_2}\right)\cdots\left(1 - \frac{1}{p_k}\right) \]
+  \end{corollary}
+  
+  \subparagraph{Example} $\tot(72) = \tot(2^3 \cdot 3^2) = 72(1 - \frac{1}{2})(1 - \frac{1}{3}) = 72\cdot\frac{1}{2}\cdot\frac{2}{3}
+  = \frac{72}{6} = 12$
+  
+  \begin{proof}
+    \begin{align*}
+      \tot(n) &= \left[p_1^{e_1-1}(p_1-1)\right] \left[p_2^{e_2-1}(p_2-1)\right] \cdots \left[p_k^{e_k-1}(p_k-1)\right] \\
+        &= \left[p_1^{e_1}\left(1-\frac{1}{p_1}\right)\right] \left[p_2^{e_2}\left(1-\frac{1}{p_2}\right)\right] \cdots \left[p_k^{e_k}\left(1-\frac{1}{p_k}\right)\right] \\
+        &= p_1^{e_1} p_2^{e_2} \cdots p_k^{e_k} \left( 1 - \frac{1}{p_1}\right) \left(1 - \frac{1}{p_2}\right)\cdots\left(1 - \frac{1}{p_k}\right) \\
+        &= n\left( 1 - \frac{1}{p_1}\right) \left(1 - \frac{1}{p_2}\right)\cdots\left(1 - \frac{1}{p_k}\right)
+    \end{align*}
+  \end{proof}
+  
+  \begin{theorem}
+    If $n \geq 1$, then
+    
+    \[ \sum_{d \divides n}\tot(d) = n \]
+  \end{theorem}
+  
+  \subparagraph{Example} The divisors of 8 are 1, 2, 4, and 8.
+  
+  \[ \sum_{d \divides 8}\tot(d) = \tot(1) + \tot(2) + \tot(4) + \tot(8) = 1 + 1 + 2 + 4 = 8 \]
+  
+  \begin{proof}
+    The proof is first thought by Gauss. Consider the integers 1, 2, \dots, $n$. We will put one of
+    these integers in class $C_d$ if and only if its greatest common divisor with $n$ is $d$.
+    For example, if $n = 12$, we have
+    
+    \begin{align*}
+      C_1 &= \{1, 5, 7, 11\},& C_2 &= \{2, 10\}, \\
+      C_3 &= \{3, 9\},& C_4 &= \{4, 8\}, \\
+      C_5 &= \{6\},& C_6 &= \{12\}.
+    \end{align*}
+    
+    We have $m$ in $C_d$ if and only if $(m, n) = d$. But $(m, n) = d$ if and only if
+    $(m/d, n/d) = 1$. That is, an integer $m$ is in class $C_d$ if and only if $m/d$ is
+    relatively prime to $n/d$. The number of positive integers less than or equal to
+    $n/d$ and relatively prime to $n/d$ is $\tot(n/d)$ by definition. Thus, the number
+    of elements in class $C_d$ is $\tot(n/d)$.
+    
+    Since there is a class for each divisor of $n$, the total number of elements in all
+    the classes $C_d$ is
+    
+    \[ \sum_{d\divides n}\tot(n/d) \]
+    
+    That is, $n = \sum_{d\divides n}\tot(n/d)$. But $\sum_{d\divides n}\tot(n/d)$ is
+    the same as $\sum_{d\divides n}\tot(n)$, just with the terms in opposite order.
+    Thus the theorem is proved.
+  \end{proof}
+  
+  \section{Primitive Roots}
+  
+
   
 \end{document}
 
