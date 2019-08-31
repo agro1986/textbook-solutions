@@ -1276,7 +1276,329 @@
   
   \section{Primitive Roots}
   
-
+  \begin{definition}
+    If $(a, m) = 1$, then the \textbf{order} of $a$ modulo $m$ is the smallest positive
+    integer $t$ such that $a^t \equiv 1 \pmod{m}$.
+  \end{definition}
+  
+  \subparagraph{Example} 10 has order of 2 (mod 11). On the other hand, 2 has order of 10 (mod 11).
+  
+  \begin{theorem}
+    Suppose that $(a, m) = 1$ and $a$ has order $t$ (mod $m$). Then $a^n = 1 \pmod{m}$ if and only if
+    $n$ is a multiple of $t$.
+  \end{theorem}
+  
+  \subparagraph{Example} 10 has order of 2 (mod 11), so $10^4$, $10^6$, etc. are all congruent to 1 (mod 11).
+  Also we can quickly know that $10^{13}$ is not congruent to 1 (mod 11) because 13 is not a multiple of 2.
+  
+  \begin{proof}
+    Suppose that $n = tq$ for some integer $q$. Then $a^n \equiv a^{tq} \equiv (a^t)^q \equiv 1 \pmod{m}$
+    because $a^t \equiv 1 \pmod{m}$.
+    
+    Conversely, suppose that $a^n \equiv 1 \pmod{m}$. Since $t$ is the smallest positive integer such that
+    $a^t \equiv 1 \pmod{m}$, we have $n \geq t$ so we can divide $n$ by $t$ to get $n = tq + r$ with
+    $q \geq 1$ and $0 \leq r < t$. Thus
+    
+    \[ 1 \equiv a^n \equiv a^{tq + r} \equiv (a^t)^q a^r \equiv 1^q a^r \equiv a^r \pmod{m} \]
+    
+    Since $t$ is the smallest positive integer such that $a^t \equiv 1 \pmod{m}$, $a^r \equiv 1 \pmod{m}$
+    with $0 \leq r < t$ is possible only if $r = 0$. Thus $n = tq$ and the theorem is proved.
+  \end{proof}
+  
+  \begin{theorem}
+    If $(a, m) = 1$ and $a$ has order $t$ (mod $m$), then $t \divides \tot(m)$.
+  \end{theorem}
+  
+  \subparagraph{Example} $\tot(11) = 10$, so an integer can have order of 1, 2, 5, or 10 (mod 11).
+  
+  \begin{proof}
+    From Euler's extension of Fermat's Theorem we know that $a^{\tot(m)} \equiv 1 \pmod{m}$. From
+    Theorem 1, $\tot(m)$ is a multiple of $t$, which is what we wanted to prove.
+  \end{proof}
+  
+  \begin{theorem}
+    If $p$ and $q$ are odd primes and $q \divides a^p - 1$, then either $q \divides a - 1$ or $q = 2kp + 1$
+    for some integer $k$.
+  \end{theorem}
+  
+  \begin{proof}
+    Since $q \divides a^p - 1$, we have $a^p \equiv 1 \pmod{q}$. So by Theorem 1, the order of $a$ (mod $q$)
+    is a divisor of $p$. That is, $a$ has order 1 or $p$. If the order of $a$ is 1, then $a^1 \equiv 1 \pmod{q}$,
+    so $q \divides a - 1$. If on the other had the order of $a$ is $p$, then by Theorem 2, $p \divides \tot(q)$;
+    that is, $p \divides q - 1$. So $q - 1 = rp$ for some integer $r$. Since $p$ and $q$ are odd, $r$ must be even,
+    and this completes the proof.
+  \end{proof}
+  
+  \begin{corollary}
+    Any divisor of $2^p - 1$ (where $p$ is a prime) is of the form $2kp + 1$.
+  \end{corollary}
+  
+  \begin{proof}
+    $2^p - 1$ is odd, so any of its prime factor $q$ must be odd which means the previous theorem apply. However
+    $a = 2$ so $q \divides a - 1 = 1$ is nonsensical because $q$ is a prime. Therefore $q = 2kp + 1$ for
+    some integer $k$. If $2^p - 1$ has more than one factor (e.g., it is a composite number), then the product
+    of any two factors $q_1$ and $q_2$ will be a divisor also. It is in fact
+    
+    \begin{align*}
+      q_1q_2 &= (2k_1p + 1)(2k_2p + 1) \\
+        &= 4k_1k_2p^2 + 2k_1p + 2k_2p + 1 \\
+        &= 2(2k_1k_2p + k_1 + k2_2)p + 1 \\
+        &= 2jp + 1
+    \end{align*}
+    
+    for some integer $j$. The same conclusion will hold for the product of more factors.
+    
+    1 is the last divisor not covered by the cases above, but it can also be written as $2kp + 1$ with
+    $k = 0$. Therefore the statement is proved.
+  \end{proof}
+  
+  \begin{theorem}
+    If the order of $a$ (mod $m$) is $t$, then $a^r \equiv a^s \pmod{m}$ if and only if $r \equiv s \pmod{t}$.
+  \end{theorem}
+  
+  \subparagraph{Example} The order of 2 is 3 (mod $7$). Because $2 \equiv 8 \pmod{3}$, $2^2 \equiv 2^8 \pmod{7}$.
+    Indeed, $2^8 \equiv 256 \equiv 256 - 210 \equiv 46 - 42 \equiv 4 \pmod{7}$.
+  
+  \begin{proof}
+    Suppose that $a^r \equiv a^s \pmod{m}$. We can suppose that $r \geq s$ with no loss of generality.
+    Thus $a^{r - s} \equiv 1 \pmod{m}$, and from Theorem 1, $r - s$ is a multiple of $t$. That, by definition,
+    says that $r \equiv s \pmod{t}$.
+    
+    For the converse, suppose that $r \equiv s \pmod{t}$. Then $r = s + kt$ for some integer $k$, and
+    
+    \[ a^r = a^{s + kt} = a^s(a^t)^k \equiv a^s \pmod{m} \]
+    
+    because $a^t \equiv 1 \pmod{m}$.
+  \end{proof}
+  
+  \begin{definition}
+    If $a$ is a least residue and the order of $a$ (mod $m$) is $\tot(m)$, then we will say that $a$ is
+    a primitive root of $m$.
+  \end{definition}
+  
+  \begin{theorem}
+    If $g$ is a primitive root of $m$, then the least residues, modulo $m$, of
+    
+    \[ g, g^2, \dots, g^{\tot(m)} \]
+    
+    are a permutation of the $\tot(m)$ positive integers less than $m$ and relatively prime to it.
+  \end{theorem}
+  
+  \subparagraph{Example} 2 is a primitive root of 9, and the powers
+  
+  \[ 2, 2^2, 2^3, 2^4, 2^5, 2^6 \]
+  
+  are (mod 9),
+  
+  \[ 2, 4, 8, 7, 5, 1 \]
+  
+  Which are exactly the residues relatively prime to 9.
+  
+  \begin{proof}
+    Since $(g, m) = 1$, each power of $g$ is relatively prime to $m$. Moreover, no two powers
+    have the same residue, because if $g^j \equiv g^k \pmod{m}$, then from Theorem 4,
+    $j \equiv k \pmod{\tot(m)}$. If $j \nequiv k \pmod{\tot(m)}$, $g^j \nequiv g^k \pmod{m}$.
+  \end{proof}
+  
+  \begin{lemma}
+    Suppose that $a$ has order $t$ (mod $m$). Then $a^k$ has order $t$ (mod $m$) if and
+    only if $(k, t) = 1$.
+  \end{lemma}
+  
+  \subparagraph{Example} 2 has order 10 (mod 11), and the lemma says that $2^k$ has order
+  10 if and only if $(k, 10) = 1$; that is, for $k = 1, 3, 7, \text{and}\;9$. The other primitive roots of 11
+  are thus $2^3, 2^7, \text{and}\; 2^9$, or 8, 7, and 6.
+  
+  \begin{proof}
+    Suppose that $(k, t) = 1$, and denote the order of $a^k$ by $s$. We have
+    
+    \[ 1 \equiv (a^t)^k \equiv (a^k)^t \pmod{m}, \]
+    
+    so from Theorem 1, $s \divides t$. Because $s$ is the order of $a^k$,
+    
+    \[ (a^k)^s \equiv a^{ks} \equiv 1 \pmod{m}, \]
+    
+    so from Theorem 1 again, $t \divides ks$. Since $(k, t) = 1$, it follows that
+    $t \divides s$. This fact, combined with the fact that $s \divides t$, implies that
+    $s = t$.
+    
+    To prove the converse, suppose that $a$ and $a^k$ have order $t$ and
+    that $(k, t) = r$. Then
+    
+    \[ 1 \equiv a^t \equiv (a^t)^{k / r} = (a^k)^{t / r} \pmod{m} \]
+    
+    Because $t$ is the order of $a^k$, Theorem 1 says that $t/r$ is
+    a multiple of $t$. This impies that $r = 1$.
+  \end{proof}
+  
+  \begin{corollary}
+    Suppose that $g$ is a primitive root of a prime $p$. Then the least residue of
+    $g^k$ is a primitive root of $p$ if and only if $(k, p - 1) = 1$.
+  \end{corollary}
+  
+  \begin{proof}
+    Apply Lemma 1 with $t = p - 1$.
+  \end{proof}
+  
+  \begin{lemma}
+    If $f$ is a polynomial of degree $n$ and $p$ is a prime, then
+    
+    \begin{equation}
+      f(x) \equiv 0 \pmod{p} \label{eq:1BCCEB6C-B77A-4DFC-87D8-B38F8C8BF96B}
+    \end{equation}
+    
+    has at most $n$ solutions.
+  \end{lemma}
+  
+  \begin{proof}
+    Let
+    
+    \[ f(x) = a_nx^n + a_{n - 1}x^{n - 1}+\dots+a_0 \]
+    
+    have degree $n$; that is, $a_n \nequiv 0 \pmod{p}$. We prove the lemma
+    by induction. For $n = 1$,
+    
+    \[ a_1x + a_0 \equiv 0 \pmod{p} \]
+    
+    has but one solution, since $(a_1, p) = 1$. Suppose that the lemma is true
+    for polynomials of degree $n - 1$, and suppose that $f$ has degree $n$.
+    Either $f(x) \equiv 0 \pmod{p}$ has no solutions or it has at least one. In the
+    first case, the lemma is true. In the second case, suppose that $r$ is a solution.
+    That is, $f(r) \equiv 0 \pmod{p}$ and $r$ is a least residue (mod $p$). Then
+    because $x - r$ is a factor of $x^t - r^t$ for $t = 0, 1, \dots, n$, we have
+    
+    \begin{align*}
+      f(x) &\equiv f(x) - f(r) \\
+        &\equiv a_n(x^n - r^n) + a_{n - 1}(x^{n - 1} - r^{n - 1}) + \dots + a_1(x - r) \\
+        &\equiv (x - r)g(x) \pmod{p},
+    \end{align*}
+    
+    where $g$ is a polynomial of degree $n - 1$. Suppose that $s$ is also a solution
+    of (\ref{eq:1BCCEB6C-B77A-4DFC-87D8-B38F8C8BF96B}). Thus
+    
+    \[ f(s) \equiv (s - r)g(s) \equiv 0 \pmod{p} \]
+    
+    Because $p$ is a prime it follows that
+    
+    \[ s \equiv r \pmod{p} \;\;\;\text{or}\;\;\; g(s) = 0 \pmod{p} \]
+    
+    from the induction assumption, the second congruence has at most $n - 1$ solutions.
+    Since the first congruence has just one solution, the proof is complete.
+  \end{proof}
+  
+  \begin{lemma}
+    If $p$ is a prime and $d \divides p - 1$, then $x^d \equiv 1 \pmod{p}$ has exactly $d$ solutions.
+  \end{lemma}
+  
+  \subparagraph{Example} With $p = 7$, we have $x^6 \equiv 1 \pmod{7}$ for
+    $x = 1, 2, \dots, 6$. The divisors of 6 are 1, 2, 3, and 6. The case 1 and 6 are
+    trivial. For $x^2 \equiv 1 \pmod{7}$, the only solutions are 1 and 6. For
+    $x^3 \equiv 1 \pmod{7}$, the solutions are 1, 2, and 4.
+  
+  \begin{proof}
+    From Fermat's Theorem, the congruence $x^{p - 1} \equiv 1 \pmod{p}$ has exactly
+    $p - 1$ solutions, namely $1, 2, ..., p - 1$. Moreover,
+    
+    \begin{align*}
+      x^{p - 1} - 1 &= (x^d - 1)(x^{p-1-d}+x^{p-1-2d}+\dots + x^d+1) \\
+        &= (x^d - 1)h(x)
+    \end{align*}
+    
+    From Lemma 2, we know that $h(x) \equiv 0 \pmod{p}$ has at most $p - 1 - d$
+    solutions. Hence $x^d \equiv 1 \pmod{p}$ has at least $d$ solutions.
+    Applying Lemma 2 again, $x^d \equiv 1 \pmod{p}$ has at most $d$ solutions.
+    Therefore it has exactly $d$ solutions.
+  \end{proof}
+  
+  \begin{theorem}
+    Every prime $p$ has $\tot(p - 1)$ primitive roots.
+  \end{theorem}
+  
+  \begin{proof}
+    Theorem 2 says that each of the integers
+    
+    \begin{equation}
+      1, 2, \dots, p - 1
+      \label{eq:A20BD758-1D7B-441E-9E7C-8E7D3DF3D1CC}
+    \end{equation}
+    
+    has an order that is a divisor of $p - 1$. For each divisor $t$ of $p - 1$, let
+    $\psi(t)$ denote the number of integers in (\ref{eq:A20BD758-1D7B-441E-9E7C-8E7D3DF3D1CC})
+    that have order $t$. Restating what we have just said:
+    
+    \[ \sum_{t \divides p - 1} \psi(t) = p - 1 \]
+    
+    From Theorem 4 of Section 9, we have
+    
+    \begin{equation}
+      \sum_{t \divides p - 1} \psi(t) = \sum_{t \divides p - 1} \tot(t)
+      \label{eq:E0ADB735-0A98-4252-8D5C-0CCFC3922D5C}
+    \end{equation}
+    
+    If we can show that $\psi(t) \leq \tot(t)$ for each $t$, it will follow from
+    (\ref{eq:E0ADB735-0A98-4252-8D5C-0CCFC3922D5C}) that $\psi(t) = \tot(t)$
+    for each $t$. In particular, the number of primitive roots of $p$ will be
+    $\psi(p - 1) = \tot(p - 1)$.
+    
+    Choose some $t$. If $\psi(t) = 0$, then $\psi(t) < \tot(t)$ and we are done.
+    If $\psi(t) \neq 0$, then there is an integer with order $t$; call it $a$.
+    The congruence
+    
+    \begin{equation}
+      x^t \equiv 1 \pmod{p}
+    \end{equation}
+    
+    has, according to Lemma 3, exactly $t$ solutions. Furthermore, (4) is
+    satisfied by the $t$ integers
+    
+    \begin{equation}
+      a, a^2, a^3, \dots, a^t
+    \end{equation}
+    
+    Why is this so? Note that $a$ has order $t$, so $a, a^2, a^3, \dots, a^{t-1}$
+    cannot be congruent to 1. And because $a^t$ is congruent to 1, $a^{t + 1} \equiv a^ta \equiv a \pmod{p}$
+    so the cycle will repeat again. Also note that no two of the numbers in (5)
+    have the same least residue (mod $p$), because else the sequence will have
+    repetition and it won't ever be congruent to 1.
+    
+    From Lemma 1, the numbers in (5) that have order $t$ are those powers $a^k$
+    with $(k, t) = 1$. But there are $\tot(t)$ such numbers $k$. Hence $\psi(t) = \tot(t)$
+    in this case. As noted above, this completes the proof.
+  \end{proof}
+  
+  \begin{corollary}
+    If $p$ is a prime and $t \divides (p - 1)$, then the number of least residues
+    (mod $p$) with order $t$ is $\tot(t)$.
+  \end{corollary}
+  
+  \begin{proof}
+    This follows from $\psi(t) = \tot(t)$ on the previous proof.
+  \end{proof}
+  
+  \begin{theorem}[Wilson's Theorem, alternate proof] If $p$ is a prime,
+  $(p - 1)! \equiv -1 \pmod{p}$.
+  \end{theorem}
+  
+  \begin{proof}
+    The case $p = 2$ can be confirmed by calculation. Now let $g$ be a primitive
+    root of the odd prime $p$. From Theorem 5, we know that
+    the lest residues (mod $p$) of $g, g^2, \dots, g^{p - 1}$ are a permutation of $1,
+    2, \dots, p - 1$. Multiplying and using the fact that
+    
+    \[ 1 + 2 + 3 + \dots + (p - 1) = (p - 1)p/2, \]
+    
+    we get
+    
+    \[ 1 \cdot 2 \cdots (p - 1) \equiv g \cdot g^2 \cdots g^{p - 1} \pmod{p} \]
+    
+    or
+    
+    \[ (p - 1)! \equiv (g^p)^{(p - 1)/2} \equiv g^{(p - 1)/2} \pmod{p}. \]
+    
+    But $g^{(p - 1)/2}$ satisfies $x^2 \equiv 1 \pmod{p}$, and we know that
+    $g^{(p - 1)/2} \equiv 1$ or -1 (mod $p$). But the first case is impossible,
+    since $g$ is a primitive root of $p$. Thus $(p - 1)! \equiv -1\pmod{p}$.
+  \end{proof}
   
 \end{document}
 
