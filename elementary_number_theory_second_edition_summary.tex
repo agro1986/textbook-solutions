@@ -988,7 +988,201 @@
   
   \section{Fermat's and Wilson's Theorems}
   
-  TODO
+  \begin{lemma}
+    If $(a, m) = 1$, then the least residues of
+    
+    \begin{equation}
+      a, 2a, 3a, \dots, (m - 1)a \pmod{m}
+    \end{equation}
+    
+    are
+    
+    \begin{equation}
+      1, 2, 3, \dots, m - 1
+    \end{equation}
+    
+    is some order.
+  \end{lemma}
+  
+  \subparagraph{Example} For $m = 8$ and $a = 3$, the numbers in (1) are
+  
+  \[ 3, 6, 9, 12, 15, 18, 21 \]
+  
+  and their least residues (mod 8) are
+  
+  \[ 3, 6, 1, 4, 7, 2, 5 \]
+  
+  \begin{proof}
+    There are $m - 1$ numbers in (1), none congruent to 0 (mod $m$). Hence
+    each of them is congruent (mod $m$) to one of the numbers in (2).
+    If we show that no two of the integers in (1) are congruent (mod $m$), then
+    it follows that their least residues (mod $m$) are all different, and hence are
+    a permutation of $1, 2, \dots, m - 1$.
+    
+    Suppose that two of the integers in (1) are congruent (mod $m$): that is,
+    
+    \[ ra \equiv sa \pmod{m} \]
+    
+    Because (a, m) = 1 we can cancel (Theorem 4.4) and get
+    
+    \[ r \equiv s \pmod{m} \]
+    
+    But $r$ and $s$ are least residues modulo $m$; by argument we have used
+    several times before, it follows that $r = s$.
+  \end{proof}
+  
+  \begin{theorem}[Fermat's Theorem]
+    If $p$ is prime and $(a, p) = 1$,
+    
+    \[ a^{p - 1} \equiv 1 \pmod{p} \]
+  \end{theorem}
+  
+  \subparagraph{Example} For $p = 5$ and $a = 2$, we have $a^4 = 16
+    \equiv 1 \pmod{5}$.
+    
+  \begin{proof}
+    Given any prime $p$, Lemma 1 says that if $(a, p) = 1$, then the
+    least residues of
+    
+    \[ a, 2a, \dots, (p - 1)a \pmod{p} \]
+    
+    are a permutation of
+    
+    \[ 1, 2, \dots, p - 1. \]
+    
+    Hence their products are congruent (mod $p$):
+    
+    \[ a \cdot 2a \cdot 3a \cdots (p - 1)a \equiv 1 \cdot 2 \cdot 3 \cdots (p - 1) \pmod{p} \]
+    
+    or
+    
+    \[ a^{p - 1}(p - 1)! = (p - 1)! \pmod{p} \]
+    
+    Since $p$ and $(p - 1)!$ are relatively prime, the last congruence gives
+    
+    \[ a^{p - 1} \equiv 1 \pmod{p} \]
+  \end{proof}
+  
+  \begin{corollary}
+    If $p$ is a prime, then
+    
+    \[ a^p \equiv a \pmod{p} \]
+    
+    for all $a$.
+  \end{corollary}
+  
+  \begin{proof}
+    If $(a, p) = 1$, this follows from Fermat's Theorem. If $(a, p) = p$, then the corollary
+    says $0 = 0 \pmod{p}$, which is true. There are no other cases.
+  \end{proof}
+  
+  \begin{lemma}
+    $x^2 \equiv 1 \pmod{p}$ has exactly two solutions: 1 and $p - 1$.
+  \end{lemma}
+  
+  \begin{proof}
+    Let $r$ be any solution of $x^2 \equiv 1 \pmod{p}$. By solution we mean, as we did
+    for linear congruences, a least residue that satisfies the congruence. We have
+    $r^2 - 1 \equiv 0 \pmod{p}$, so
+    
+    \[ p \divides (r + 1)(r - 1) \]
+    
+    hence $p \divides (r + 1)$ or $p \divides (r - 1)$; otherwise expressed,
+    
+    \[ r + 1 \equiv 0 \;\;\text{or}\;\; r -1 \equiv 0 \pmod{p}, \]
+    
+    so $r \equiv p - 1$ or $1$ (mod $p$). Since $r$ is a least residue (mod $p$),
+    it follows that $r = p - 1$ or 1. It is easy to verify that both of these numbers
+    actually satisfy $x^2 \equiv 1 \pmod{p}$.
+  \end{proof}
+  
+  \begin{lemma}
+    Let $p$ be an odd prime and let $a'$ be the solution of $ax \equiv 1 \pmod{p}$,
+    $a = 1, 2, \dots, p -1$. $a' \equiv b' \pmod{p}$ if and only if $a \equiv b \pmod{p}$.
+    Furthermore, $a \equiv a' \pmod{p}$ if and only if $a = 1$ or $p - 1$.
+  \end{lemma}
+  
+  \subparagraph{Example} For $p = 13$ we have
+  
+  \begin{center}
+    \begin{tabular}{ l | r r r r r r r r r r r r }
+      $a$  & 1 & 2 & 3 &  4 &  5 & 6  & 7  & 8 & 9 & 10 & 11 & 12  \\
+      $a'$ & 1 & 7 & 9 & 10 & 8 & 11 & 2 & 5 & 3 & 4 & 6 & 12
+    \end{tabular}
+  \end{center}
+  
+  Note that the bottom row does not have duplicate entries, which means
+  $a' \equiv b' \pmod{p}$ if and only if $a \equiv b \pmod{p}$.
+  
+  \begin{proof}
+    Suppose that $a' \equiv b' \pmod{p}$. Then
+    
+    \[ b \equiv aa'b \equiv ab'b \equiv a \pmod{p} \]
+    
+    Conversely, suppose that $a \equiv b \pmod{p}$. Then
+    
+    \[ b' \equiv b'aa' \equiv b'ba' \equiv a' \pmod{p}. \]
+    
+    For the second part of the proof, it follows from $1 \cdot 1 \equiv (p - 1)(p - 1)
+    \equiv 1 \pmod{p}$ that $1' \equiv 1 \pod{p}$ and $(p - 1)' \equiv p - 1 \pmod{p}$.
+    Conversely, if $a \equiv a' \pmod{p}$, then $1 \equiv aa' \equiv a^2 \pmod{p}$, and
+    from Lemma 2 we know that this is possible only if $a = 1$ or $p - 1$.
+  \end{proof}
+  
+  \begin{theorem}[Wilson's Theorem]
+    $p$ is a prime if and only if
+    
+    \[ (p - 1)! \equiv -1 \pmod{p} \]
+  \end{theorem}
+  
+  \subparagraph{Example} For the prime $p = 5$, we have
+  
+  \[ (p - 1)! = 4! = 4 \cdot 3 \cdot 2 \cdot 1 = 24 \equiv -1 \pmod{p} \]
+  
+  \begin{proof}
+    From Lemma 3, we know that we can separate the numbers
+    
+    \[ 2, 3, \dots p - 2 \]
+    into $(p - 3) / 2$ pairs such that each pair consists of an integer
+    $a$ and its associated $a'$, which is different from $a$. For example,
+    for $p = 13$ the pairs are
+    
+    \[ (2, 7), (3, 9), (4, 10), (5, 8), (6, 11) \]
+    
+    The product of the two integers in each pair is congruent to 1 (mod $p$),
+    so it follows that
+    
+    \[ 2 \cdot 3 \cdot (p - 2) \equiv 1 \pmod{p}. \]
+    
+    Hence
+    
+    \[ (p - 1)! \equiv 1 \cdot 2 \cdot 3 \cdots (p - 2)(p-1) \equiv 1 \cdot 1 \cdot (p - 1) \equiv -1 \pmod{p} \]
+    
+    and we have proved half of the theorem. It remains to prove the other half and show that if
+    
+    \begin{equation}
+      (n - 1)! \equiv -1 \pmod{n},
+    \end{equation}
+    
+    then $n$ is a prime. Suppose that $n = ab$ for some integers $a$ and $b$, with $a \neq n$. From (3), we have
+    
+    \[ n \divides (n - 1)! + 1, \]
+    
+    and since $a \divides n$, we have
+    
+    \begin{equation}
+      a \divides (n - 1)! + 1
+    \end{equation}
+    
+    But since $a \leq n - 1$, it follows that one of the factors of $(n - 1)!$ is $a$ itself. Thus
+    
+    \begin{equation}
+      a \divides (n - 1)!
+    \end{equation}
+    
+    But (4) and (5) imply that $a \divides 1$. Hence the only positive divisors of $n$ are 1 and
+    $n$, and thus $n$ is a prime.
+  \end{proof}
   
   \section{The Divisors of an Integer}
   
