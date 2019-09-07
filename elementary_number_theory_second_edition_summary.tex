@@ -1186,11 +1186,322 @@
   
   \section{The Divisors of an Integer}
   
-  TODO
+  \begin{definition}
+    Let $n$ be a positive integer. $d(n)$ denotes the number of positive divisors of $n$
+    (including 1 and $n$), and $\sigma(n)$ denotes the sum of the positive divisors of $n$.
+    We can write those as
+    
+    \[ d(n)=\sum_{d \divides n} 1 \;\;\;\text{and}\;\;\; \sigma(n) = \sum_{d \divides n} d \]
+    
+    where $\sum_{d \divides n}$ means \textbf{the sum over the positive divisors of n}.
+  \end{definition}
+  
+  \subparagraph{Examples}
+  
+  \[ \sum_{d \divides 10}d^2 = 1 + 4 + 25 + 100 \]
+  
+  If $p$ is a prime, then $d(p) = 2$ because the only positive divisors of $p$ are 1 and $p$.
+  
+  $d(p^2) = 3$ because $p^2$ has 1, $p$, and $p^2$ as its divisors.
+  
+  \begin{theorem}
+    If $p$ is a prime, $d(p^n) = n + 1$.
+  \end{theorem}
+  
+  \begin{proof}
+    The divisors of $p^n$ are $p^0, p^1, p^2, \dots, p^n$ so there are $n + 1$ of them.
+  \end{proof}
+  
+  \begin{theorem}
+    \label{th:divisor_count_formula}
+    If $p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}$ is the prime-power decomposition of $n$, then
+    
+    \[ d(n) = d(p_1^{e_1})d(p_2^{e_2})\cdots d(p_k^{e_k}) \]
+  \end{theorem}
+  
+  \subparagraph{Example} 24 = $2^3 \cdot 3$, so $d(24) = d(2^3)d(3) = 4 \cdot 2 = 8$.
+  
+  \begin{proof}
+    Let $D$ denote the set of numbers
+    
+    \begin{equation}
+      p_1^{f_1}p_2^{f_2}\cdots p_k^{f_k}, \;\;\; 0 \leq f_1 \leq e_1
+    \end{equation}
+    
+    We claim that $D$ is exactly the set of divisors of $n$. First, we note that every number
+    in the set is a divisor of $n$, because we can find for each number in (1) an integer
+    whose product with the number is $n$; namely,
+    
+    \[ p_1^{e_1-f_1}p_2^{e_2-f_2}\cdots p_k^{e_k-f_k} \]
+    
+    Second, suppose that $d$ is a divisor of $n$. If $p \divides d$, then $p \divides n$, so
+    each prime in the prime-power decomposition of $d$ must appear in the prime-power
+    decomposition of $n$. Thus
+    
+    \[ d = p_1^{f_1}p_2^{f_2}\cdots p_k^{f_k} \]
+    
+    where some (or all) of the exponents may be 0. Moreover, no exponent $f_i$ is larger
+    than $e_i$. Thus every divisor of $n$ is a member of the set $D$. Thus $D$ is
+    identical with the set of divisors of $n$. Each $f_i$ in (1) may take on $e_1 + 1$ values.
+    Thus there are
+    
+    \[ (e_1 + 1)(e_2 + 1)(e_3 + 1) \cdots (e_k + 1) \]
+    
+    numbers in $D$, and because of the unique factorization theorem, they are all different.
+    Since $d(p^n) = n + 1$, this proves the theorem.
+  \end{proof}
+  
+  \begin{theorem}
+    If $p$ is a prime, $\sigma(p^n) = \frac{p^{n+1} - 1}{p - 1}$ for $n = 0, 1, 2, \dots$.
+  \end{theorem}
+  
+  \begin{proof}
+    \begin{align*}
+      \sigma(p^n) &= p^n + p^{n-1} + p^{n-2} + \dots + p + 1 \\
+      \Leftrightarrow (p - 1)\sigma(p^n) &= (p - 1)(p^n + p^{n-1} + p^{n-2} + \dots + p + 1) \\
+      &= p^{n+1} - 1 \\
+      \Leftrightarrow  \sigma(p^n) &= \frac{p^{n+1} - 1}{p - 1}
+    \end{align*}
+  \end{proof}
+  
+  \begin{theorem}
+    \label{th:divisor_sum_formula}
+    If $p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}$ is the prime-power decomposition of $n$, then
+    
+    \[ \sigma(n) = \sigma(p_1^{e_1})\sigma(p_2^{e_2})\cdots \sigma(p_k^{e_k}) \]
+  \end{theorem}
+  
+  \subparagraph{Example} $24 = 2^3 \cdot 3$, so
+  
+  \[ \sigma(24) = \sigma(2^3)\sigma(3) = (1 + 2 +4 + 8)(1 + 3) = 60 \]
+  
+  \begin{proof}
+    The theorem is trivially true for $k = 1$. Now let us check that it is true for
+    two primes $p$ and $q$. To calculate $\sigma(p^eq^f)$,
+    note that the divisors of $p^eq^f$ are
+    
+    \[
+  \begin{matrix}
+    1    & p & p^2 & \dots & p^e, \\
+    q    & pq & p^2q & \dots & p^eq, \\
+    q^2 & pq^2 & p^2q^2 & \dots & p^eq^2, \\
+          &          & \vdots    &   & \\
+    q^f & pq^f & p^2q^f & \dots & p^eq^f, \\
+  \end{matrix}
+    \]
+    
+    If we add across each row, we get
+    
+    \begin{align*}
+      \sigma(p^eq^f) = &\; (1 + p + \dots + p^e) + q(1 + p + \dots + p^e) \\
+       &\; + q^2(1 + p + \dots + p^e) + \dots \\
+       &\; + q^f(1 + p + \dots + p^e) \\
+       = &\; (1 + p + \dots + p^e)(1 + q + \dots  + q^f) \\
+       = &\; \sigma(p^e)\sigma(q^f)
+    \end{align*}
+  
+    We will use mathematical induction for $k > 2$. Suppose that it is true
+    for $k = r$. We will show that this implies that it is true for $k = r + 1$. Let
+    
+    \[ n = p_1^{e_1}p_2^{e_2}\cdots p_r^{e_r}p_{r+1}^{e_{r+1}} = Np_{r+1}^{e_{r+1}} \]
+    
+    To simplify the notation, let us write $n = Np^e$. Let $1, d_1, \dots, d_t$ be the divisors
+    of $N$. Since $(N, p) = 1$, all of the divisors of $n$ are
+    
+    \[
+      \begin{matrix}
+      1    & d_1 & d_2 & \dots & d_t, \\
+      p    & d_1p & d_2p & \dots & d_tp, \\
+            &          & \vdots    &   & \\
+      p^e & d_1p^e & d_2p^e & \dots & d_tp^e \\
+      \end{matrix}
+    \]
+    
+    Summing, we get
+    
+    \begin{align*}
+      \sigma(n) &= (1 + d_1 + d_2 + \dots + d_t)(1 + p + \dots + p^e) \\
+        &= \sigma(N)\sigma(p^e)
+    \end{align*}
+    
+    But from the induction assumption,
+    
+    \[ \sigma(N) = \sigma(p_1^{e_1})\sigma(p_2^{e_2})\cdots \sigma(p_r^{e_r}) \]
+    
+    and the last two equations complete the proof.
+  \end{proof}
+  
+  \begin{definition}
+    A function $f$, defined for the positive integers, is said to be \textbf{multiplicative}
+    if and only if
+    
+    \begin{center}
+      $(m, n) = 1\;\;$ implies $\;\;f(mn) = f(m)f(n)$
+    \end{center}
+  \end{definition}
+  
+  \subparagraph{Example} $f(n) = n$ is multiplicative. $g$ where $g(n)$ is the product
+  of the prime divisors of $n$ is also multiplicative.
+  
+  \begin{theorem}
+    $d$ is multiplicative.
+  \end{theorem}
+  
+  \begin{proof}
+    Let $m$ and $n$ be relatively prime. Then, no prime that divides $m$ can divide $n$,
+    and vice versa. Thus if
+    
+    \[ m = p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k} \;\;\text{and}\;\;n = q_1^{f_1}q_2^{f_2}\cdots q_r^{f_r} \]
+    
+    are the prime-power decompositions of $m$ and $n$, then no $q$ is a $p$ and no $p$ is a $q$,
+    and the prime power decomposition of $mn$ is given by
+    
+    \[ mn = p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}q_1^{f_1}q_2^{f_2}\cdots q_r^{f_r} \]
+    
+    Applying Theorem \ref{th:divisor_count_formula}, we have
+    
+    \begin{align*}
+       d(mn) &= d(p_1^{e_1})d(p_2^{e_2})\cdots d(p_k^{e_k})d(q_1^{f_1})d(q_2^{f_2})\cdots d(q_r^{f_r}) \\
+         &= d(p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k})d(q_1^{f_1}q_2^{f_2}\cdots q_r^{f_r}) \\
+         &= d(m)d(n)
+    \end{align*}
+  \end{proof}
+  
+  \begin{theorem}
+    $\sigma$ is multiplicative.
+  \end{theorem}
+  
+  \begin{proof}
+    The proof is exactly the same as the proof above, with $d$ replaces by $\sigma$ and
+    ``Theorem \ref{th:divisor_count_formula}" by ``Theorem \ref{th:divisor_sum_formula}."
+  \end{proof}
+  
+  \begin{theorem}
+    If $f$ is a multiplicative function and the prime-power decomposition of $n$ is
+    $p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}$, then
+    
+    \[ f(n) = f(p_1^{e_1})f(p_2^{e_2})\cdots f(p_k^{e_k}) \]
+  \end{theorem}
+  
+  \begin{proof}
+    The proof is by induction on $k$. The theorem is trivially true for $k= 1$. Suppose
+    it is true for $k = r$. Because
+    
+    \[ (p_1^{e_1}p_2^{e_2}\cdots p_r^{e_r}, p_{r+1}^{e^{r+1}}) = 1, \]
+    
+    we have, from the definition of a multiplicative function,
+    
+    \[ f((p_1^{e_1}p_2^{e_2}\cdots p_r^{e_r}) p_{r+1}^{e^{r+1}}) = f(p_1^{e_1}p_2^{e_2}\cdots p_r^{e_r})f(p_{r+1}^{e^{r+1}}). \]
+    
+    From the induction assumption, the first factor is
+    
+    \[ f(p_1^{e_1}p_2^{e_2}\cdots p_r^{e_r}) = d(p_1^{e_1})d(p_2^{e_2})\cdots d(p_r^{e_r}), \]
+    
+    and this, together with the preceding equation, completes the induction.
+  \end{proof}
   
   \section{Perfect Numbers}
   
-  TODO
+  \begin{definition}
+    A number is called \textbf{perfect} if and only if it is equal to the sum of its positive
+    divisors, excluding itself. Stated in another way, a perfect number $n$ satisfies
+    
+    \[ \sigma(n) = 2n \]
+  \end{definition}
+  
+  \subparagraph{Example} 6 is perfect, because 6 = 1 + 2 + 3. But 8 is not perfect, because
+  1 + 2 + 4 = 7 does not equal 8.
+  
+  \begin{theorem}[Euclid]
+    If $2^k - 1$ is prime, then $2^{k - 1}(2^k - 1)$ is perfect.
+  \end{theorem}
+  
+  \subparagraph{Example} With $k = 2$, 3 = $2^2 - 1$ is a prime, so $2^1 (2^2 - 1) = 2 \cdot 3 = 6$
+  is perfect.
+  
+  \begin{proof}
+    Let $n = 2^{k - 1}(2^k - 1)$. Because $2^k - 1$ is prime, we know that $\sigma(2^k - 1) =
+    2^k$. Then, noticing that $2^{k - 1}$ and $2^k - 1$ are relatively prime and applying Theorem
+    \ref{th:divisor_sum_formula}, we have
+    
+    \begin{align*}
+      \sigma(n) &= \sigma(2^{k - 1}(2^k - 1)) \\
+        &= \sigma(2^{k - 1})\sigma(2^k - 1) \\
+        &= (2^k - 1) \cdot 2^k \\
+        &= 2n.
+    \end{align*}
+    
+    Thus $n$ is perfect.
+  \end{proof}
+  
+  \begin{theorem}
+    If $k$ is composite, $2^k - 1$ is also composite.
+  \end{theorem}
+  
+  \begin{proof}
+    Suppose $k = ab$ where $k$ is composite with $a$ and $b$ not 1. Then,
+    
+    \begin{align*}
+      2^k - 1 &= 2^{ab} - 1 \\
+        &= (2^a - 1)(2^{a(b - 1)} + 2^{a(b - 2)} + \dots + 1)
+    \end{align*}
+    
+    which is to be proved.
+  \end{proof}
+  
+  \begin{theorem}[Euler]
+    If $n$ is an even perfect number, then
+    
+    \[ n = 2^{p - 1}(2^p - 1) \]
+    
+    for some prime $p$, and $2^p - 1$ is also prime.
+  \end{theorem}
+  
+  \begin{proof}
+    If $n$ is an even perfect number, then $n = 2^em$, where $m$ is odd
+    and $e \geq 1$. Since $\sigma(m) > m$, we can write $\sigma(m) = m + s$,
+    with $s > 0$. Then $2n = \sigma(n)$ becomes
+    
+    \[ 2^{e + 1}m = (2^{e + 1} - 1)(m + s) = 2^{e + 1}m - m + (2^{e + 1} - 1)s \]
+    
+    Thus
+    
+    \begin{equation}
+      m = (2^{e + 1} - 1)s
+    \end{equation}
+    
+    which says that $s$ is a divisor of $m$ and $s < m$. But $\sigma(m) = m + s$;
+    thus $s$ is the \textit{sum} of all the divisors of $m$ that are less than $m$. That is,
+    $s$ is the sum of a group of numbers that includes $s$. This is possible only if the
+    group consists of one number alone. Therefore, the set of divisors of $m$ smaller
+    than $m$ must contain only one element, and that element must be 1. That is,
+    $s = 1$, and hence $m = 2^{e+1} - 1$ is a prime.
+    
+    We have shown that $s = 1$. Thus $\sigma(m) = m + s = m + 1$. This again confirms
+    that $m$ is a prime. From (1), $m = 2^{e + 1} - 1$. The only numbers of this form that
+    can be prime are those with $e + 1$ prime. Hence $m = 2^p - 1$ for some prime $p$,
+    and this completes the proof.
+  \end{proof}
+  
+  \begin{definition}
+    Primes of the form $2^p - 1$ are called \textbf{Mersenne primes}.
+  \end{definition}
+  
+  \begin{definition}
+    $m$ and $n$ are \textbf{amicable} (or are an \textbf{amicable pair}) if and only if
+    
+    \[ \sigma(m) - m = n \;\;\text{and}\;\; \sigma(n) - n = m. \]
+    
+    Alternatively
+    
+    \[ \sigma(m) = \sigma(n) = m + n \]
+  \end{definition}
+  
+  \begin{definition}
+    An integer $n$ is \textbf{abundant} if and only if $\sigma(n) - n > n$, and it is
+    \textbf{deficient} if and only if $\sigma(n) - n < n$. \textbf{Triangular} numbers
+    have the form $n(n + 1)/2$.
+  \end{definition}
   
   \section{Euler's Theorem and Function}
   
