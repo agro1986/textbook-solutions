@@ -608,9 +608,43 @@
     \item Show that there are infinitely many $n$ such that both $6n - 1$ and $6n + 1$ are composite.
   \end{enumerate}
   
-  TODO
+  By trial for $n = 1, 2, 3, \dots$ we find that for $n = 20$,
+  $6 \cdot 20 - 1 = 119 = 7 \cdot 17$ and $6 \cdot 20 + 1 = 121 = 11^2$
+  so the statement doesn't hold. It doesn't only show that he was wrong,
+  but also lazy (presumably checking only up to $n = 19$) or couldn't factorize.
   
-  \url{https://math.stackexchange.com/questions/102493/infinite-number-of-composite-pairs-6n-1-6n-1}
+  For the proof that there are infinitely many such $n$, we will use the Chinese Remainder Theorem
+  so understanding material from chapter 5 is recommended. The method could perhaps be used
+  without the language of congruence, but it will be wordy.
+  
+  Note that for $n = 36$, $6 \cdot 36 - 1 = 215 = 5 \cdot 43$ and $6 \cdot 36 + 1 = 217 = 7 \cdot 31$.
+  In that instance $5 \divides 6n - 1$ and $7 \divides 6n + 1$, and it suffices to show that we can find
+  infinitely many other $n$ where it holds. In other words,
+  
+  \[6n - 1 \equiv 0 \pmod{5}\]
+  
+  and
+  
+  \[6n + 1 \equiv 0 \pmod{7}\]
+  
+  Or simplifying
+  
+  \[n \equiv 1 \pmod{5}\]
+  
+  and
+  
+  \[n \equiv 1 \pmod{7}\]
+  
+  By using Chinese Remainder Theorem, we know that a solution exists (mod 35) and it is
+  
+  \[n \equiv 1 \pmod{35}\]
+  
+  So there are infinite numbers of $n$ where the equation holds.
+  
+  (Note that the divisors 5 and 7 is not special, we can use the
+  method for other $n$ and divisors but 5 and 7 are small numbers so we chose it.)
+  
+  Reference: \url{https://math.stackexchange.com/questions/102493/infinite-number-of-composite-pairs-6n-1-6n-1}
   
   \begin{problem}
     Prove that if $n$ is a square, then each exponent in its prime-power decomposition is even.
